@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:turkiye_yazilim_staj/feature/login/view/login_first.dart';
+import 'package:turkiye_yazilim_staj/feature/mainscreen/main_screen.dart';
 import 'package:turkiye_yazilim_staj/product/const/colors.dart';
 
 void main() {
@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.transparent,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.transparent,
           centerTitle: true,
@@ -29,29 +30,24 @@ class MyApp extends StatelessWidget {
           textTheme: ButtonTextTheme.primary,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-              ColorsProject.apricot_sorbet,
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(13),
             ),
+            // ! neden çalışmıyor
+            // textStyle: const TextStyle(
+            //   color: ColorsProject.coffeClay,
+            //   fontSize: 20,
+            // ),
+            backgroundColor: ColorsProject.apricot_sorbet,
+            elevation: 10,
           ),
         ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      builder: (context, child) {
-        return Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/BackgroundImage.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: child!,
-        );
-      },
-      home: const FirstLoginView(),
+      debugShowCheckedModeBanner: false,
+      home: const MainScreen(),
     );
   }
 }

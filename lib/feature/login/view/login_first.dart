@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/feature/login/view/login_second.dart';
 import 'package:turkiye_yazilim_staj/product/const/colors.dart';
+import 'package:turkiye_yazilim_staj/product/widget/next_page_button.dart';
 
 class FirstLoginView extends StatelessWidget {
   const FirstLoginView({super.key});
@@ -72,26 +72,9 @@ class FirstLoginView extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 70),
-              child: Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Todo: send verification code
-                    Get.to(const VerifyPage());
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 60, vertical: 8.0),
-                    child: Text(
-                      'Devam Et',
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            color: Colors.white,
-                          ),
-                    ),
-                  ),
-                ),
-              ),
+            const NextButton(
+              page: VerifyPage(),
+              isreturn: false,
             ),
           ],
         ),
