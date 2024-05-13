@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:turkiye_yazilim_staj/feature/profile/modelview/profile_model_view.dart';
-import 'package:turkiye_yazilim_staj/product/const/colors.dart';
+import 'package:turkiye_yazilim_staj/feature/home/viewmodel/profile_model_view.dart';
+import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -52,10 +52,10 @@ class ProfileView extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
-                  .copyWith(color: ColorsProject.apricot_sorbet)),
+                  .copyWith(color: ColorsProject.apricotSorbet)),
           leading: Icon(
             icon,
-            color: ColorsProject.apricot_sorbet,
+            color: ColorsProject.apricotSorbet,
           ),
           //todo: basınca yönlendirme yapılacak
           // onTap: () => Get.toNamed(),
@@ -74,7 +74,7 @@ class ProfileView extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .labelMedium!
-                .copyWith(color: ColorsProject.apricot_sorbet)),
+                .copyWith(color: ColorsProject.apricotSorbet)),
         leading: const CircleAvatar(
           radius: 50,
           backgroundImage: AssetImage('assets/images/profilepp.png'),

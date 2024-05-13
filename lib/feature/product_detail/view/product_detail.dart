@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:turkiye_yazilim_staj/feature/all_comments/modelView/comment_model_view.dart';
 import 'package:turkiye_yazilim_staj/feature/product_detail/viewmodel/Product_detail_view_model.dart';
-import 'package:turkiye_yazilim_staj/product/const/colors.dart';
+import 'package:turkiye_yazilim_staj/feature/product_detail/viewmodel/comment_model_view.dart';
+import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 import 'package:turkiye_yazilim_staj/product/widget/comment_ui.dart';
-import 'package:turkiye_yazilim_staj/product/widget/divider.dart';
 
 part 'product_detail_widgets.dart';
 
@@ -40,13 +39,11 @@ class _ProductDetailViewState extends State<ProductDetailView> {
       body: ListView(
         children: [
           // Ürün fotoğrafı
-          Expanded(flex: 2, child: productPhoto(context)),
+          productPhoto(context),
           // Altta sheet şeklinde gelen bir yazı
-          Expanded(
-              child: _firstReview(
-                  hata, context, decrementCount, count, incrementCount)),
+          _firstReview(hata, context, decrementCount, count, incrementCount),
           // Fiyat ve sepete ekle
-          Expanded(child: _cardAndComment(context, hata))
+          _cardAndComment(context, hata)
         ],
       ),
     );
@@ -70,61 +67,65 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         ),
       ),
       //todo:  düzenleme yapılacak
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _priceAndAddCart(context),
-          SellerReview(hata: hata, context: context),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 18),
-            child: Text(
-              'Ürün Değerlendirmeleri',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 16,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _priceAndAddCart(context),
+            SellerReview(hata: hata, context: context),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 18),
+              child: Text(
+                'Ürün Değerlendirmeleri',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontSize: 16,
+                    ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              height: Get.height * 0.5,
+              decoration: BoxDecoration(
+                color: ColorsProject.grey.withOpacity(0.06),
+                borderRadius: BorderRadius.circular(21),
+                border: Border.all(
+                    color: ColorsProject.grey.withOpacity(0.3), width: 1.5),
+              ),
+              child: Stack(
+                children: [
+                  ListView.builder(
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return CommentSection(
+                        comment: CommentModelView().comments[index],
+                      );
+                    },
                   ),
-            ),
-          ),
-          Container(
-            height: 300,
-            decoration: BoxDecoration(
-              color: ColorsProject.grey.withOpacity(0.06),
-              borderRadius: BorderRadius.circular(21),
-              border: Border.all(
-                  color: ColorsProject.grey.withOpacity(0.3), width: 1.5),
-            ),
-            child: Stack(
-              children: [
-                ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return CommentSection(
-                      comment: CommentModelView().comments[index],
-                    );
-                  },
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 50),
-                      backgroundColor: ColorsProject.apricot_sorbet,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(21),
-                          bottomRight: Radius.circular(21),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 50),
+                        backgroundColor: ColorsProject.apricotSorbet,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(21),
+                            bottomRight: Radius.circular(21),
+                          ),
                         ),
                       ),
+                      child: const Text("TÜMÜNÜ GÖR"),
                     ),
-                    child: const Text("TÜMÜNÜ GÖR"),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -215,7 +216,14 @@ class _ProductDetailViewState extends State<ProductDetailView> {
           width: 150,
           //! sağ köşede sıkışmış fix
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const _AddedToCartDialog();
+                },
+              );
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 10),
               child: Text(
@@ -315,27 +323,4 @@ class _ProductDetailViewState extends State<ProductDetailView> {
       ],
     );
   }
-}
-
-class MinimalButton extends StatelessWidget {
-  const MinimalButton({super.key, required this.icon, required this.onPressed});
-  final IconData icon;
-  final void Function() onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(21),
-      ),
-      child: IconButton(
-        icon: Icon(
-          icon,
-          color: Colors.black,
-        ),
-        onPressed: onPressed,
-      ),
-    );
-  } //! fix this
 }

@@ -80,3 +80,96 @@ class SellerReview extends StatelessWidget {
     );
   }
 }
+
+class _AddedToCartDialog extends StatelessWidget {
+  const _AddedToCartDialog();
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Dialog(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            padding: const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset("assets/images/added_to_cart.png"),
+                Text(
+                  'Ürün sepete eklendi',
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        color: ColorsProject.apricotSorbet,
+                      ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                    "Siparişinize devam etmek için Sepete gidebilirsiniz ve alışverişe kaldığınız yerden devam edebilirsiniz."),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: 300,
+                  child: OutlinedButton(
+                      onPressed: () {},
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: ColorsProject.apricotSorbet,
+                        side: const BorderSide(
+                            color: ColorsProject.apricotSorbet),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
+                        child: Text("Sepete Git"),
+                      )),
+                ), // sepete gönder
+                SizedBox(
+                  width: 300,
+                  child: ElevatedButton(
+                      onPressed: Get.back,
+                      child: const Text(
+                        "Alışverişe Devam Et",
+                        style: TextStyle(color: Colors.white),
+                      )),
+                ), // alışverişe devam et
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          left: 50,
+          top: 90,
+          child: IconButton(
+            icon: const Icon(Icons.close, size: 32, color: Colors.grey),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class MinimalButton extends StatelessWidget {
+  const MinimalButton({super.key, required this.icon, required this.onPressed});
+  final IconData icon;
+  final void Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(21),
+      ),
+      child: IconButton(
+        icon: Icon(
+          icon,
+          color: Colors.black,
+        ),
+        onPressed: onPressed,
+      ),
+    );
+  } //! fix this
+}

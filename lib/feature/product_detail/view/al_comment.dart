@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:turkiye_yazilim_staj/feature/all_comments/modelView/comment_model_view.dart';
 import 'package:turkiye_yazilim_staj/feature/product_detail/view/product_detail.dart';
-import 'package:turkiye_yazilim_staj/product/const/colors.dart';
+import 'package:turkiye_yazilim_staj/feature/product_detail/viewmodel/comment_model_view.dart';
+import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 import 'package:turkiye_yazilim_staj/product/widget/comment_ui.dart';
 
 class AllCommentView extends StatefulWidget {
@@ -85,12 +85,12 @@ class _commentAndAddCardWidget extends StatelessWidget {
             flex: 3,
             child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: ColorsProject.apricot_sorbet),
+                  side: const BorderSide(color: ColorsProject.apricotSorbet),
                 ),
                 onPressed: () {},
                 child: const Text(
                   "Yorum Yap",
-                  style: TextStyle(color: ColorsProject.apricot_sorbet),
+                  style: TextStyle(color: ColorsProject.apricotSorbet),
                 )),
           ),
           const Expanded(child: SizedBox()),

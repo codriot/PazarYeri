@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:turkiye_yazilim_staj/feature/mainscreen/main_screen.dart';
-import 'package:turkiye_yazilim_staj/product/const/colors.dart';
+import 'package:turkiye_yazilim_staj/feature/home/view/home.dart';
+import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,17 +16,16 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.transparent,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.transparent,
           centerTitle: true,
           titleTextStyle: Theme.of(context).textTheme.displayMedium!.copyWith(
-                color: ColorsProject.apricot_sorbet,
+                color: ColorsProject.apricotSorbet,
               ),
           elevation: 0,
         ),
         buttonTheme: const ButtonThemeData(
-          buttonColor: ColorsProject.apricot_sorbet,
+          buttonColor: ColorsProject.apricotSorbet,
           textTheme: ButtonTextTheme.primary,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -35,11 +34,8 @@ class MyApp extends StatelessWidget {
               borderRadius: BorderRadius.circular(13),
             ),
             // ! neden çalışmıyor
-            // textStyle: const TextStyle(
-            //   color: ColorsProject.coffeClay,
-            //   fontSize: 20,
-            // ),
-            backgroundColor: ColorsProject.apricot_sorbet,
+
+            backgroundColor: ColorsProject.apricotSorbet,
             elevation: 10,
           ),
         ),
@@ -47,7 +43,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MainScreen(),
+      home: const HomeView(),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:turkiye_yazilim_staj/feature/login/view/login_third.dart';
-import 'package:turkiye_yazilim_staj/product/const/colors.dart';
+import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 import 'package:turkiye_yazilim_staj/product/widget/next_page_button.dart';
 
 class VerifyPage extends StatefulWidget {
@@ -63,7 +63,7 @@ class _VerifyPageState extends State<VerifyPage> with TickerProviderStateMixin {
         onPressed: () {},
         child: const Text(
           "yeni kod gönder",
-          style: TextStyle(color: ColorsProject.apricot_sorbet),
+          style: TextStyle(color: ColorsProject.apricotSorbet),
         ));
   }
 
@@ -109,8 +109,8 @@ class PinCode extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           fieldHeight: 70,
           fieldWidth: 60,
-          activeFillColor: ColorsProject.apricot_sorbet,
-          activeColor: ColorsProject.apricot_sorbet,
+          activeFillColor: ColorsProject.apricotSorbet,
+          activeColor: ColorsProject.apricotSorbet,
           inactiveFillColor: Colors.transparent),
       animationDuration: const Duration(milliseconds: 300),
       enableActiveFill: true,
@@ -147,7 +147,7 @@ class Countdown extends AnimatedWidget {
       style: Theme.of(context)
           .textTheme
           .titleSmall!
-          .copyWith(color: ColorsProject.apricot_sorbet),
+          .copyWith(color: ColorsProject.apricotSorbet),
     );
   }
 }

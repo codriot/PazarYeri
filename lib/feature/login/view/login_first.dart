@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:turkiye_yazilim_staj/feature/login/view/login_second.dart';
-import 'package:turkiye_yazilim_staj/product/const/colors.dart';
+import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 import 'package:turkiye_yazilim_staj/product/widget/next_page_button.dart';
 
 class FirstLoginView extends StatelessWidget {
@@ -66,7 +66,7 @@ class FirstLoginView extends StatelessWidget {
                   Text(
                     "Gizlilik Politikası ve Sartlarinizi kabul ediyorum.",
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          color: ColorsProject.apricot_sorbet,
+                          color: ColorsProject.apricotSorbet,
                         ),
                   ),
                 ],

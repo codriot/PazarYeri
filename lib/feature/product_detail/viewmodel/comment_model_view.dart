@@ -1,4 +1,4 @@
-import 'package:turkiye_yazilim_staj/feature/all_comments/model/comment_model.dart';
+import 'package:turkiye_yazilim_staj/feature/product_detail/model/comment_model.dart';
 
 class CommentModelView {
   List<CommentModel> comments = List.generate(

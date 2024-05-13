@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:turkiye_yazilim_staj/feature/all_comments/model/comment_model.dart';
-import 'package:turkiye_yazilim_staj/product/const/colors.dart';
-import 'package:turkiye_yazilim_staj/product/widget/divider.dart';
+import 'package:turkiye_yazilim_staj/feature/product_detail/model/comment_model.dart';
+import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 
 class CommentSection extends StatelessWidget {
   const CommentSection({super.key, required this.comment});
@@ -62,9 +61,39 @@ class Stars extends StatelessWidget {
           size: 12.0,
           color: index < 5 - rating.floor()
               ? Colors.grey
-              : ColorsProject.apricot_sorbet,
+              : ColorsProject.apricotSorbet,
         ),
       ),
+    );
+  }
+}
+
+class CustomDivider extends StatelessWidget {
+  const CustomDivider({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      color: ColorsProject.grey.withOpacity(0.13),
+      thickness: 1,
+    );
+  }
+}
+
+class CustomVerticalDivider extends StatelessWidget {
+  const CustomVerticalDivider({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const VerticalDivider(
+      color: Colors.black,
+      thickness: 0.5,
+      endIndent: 3,
+      indent: 3,
     );
   }
 }

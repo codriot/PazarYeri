@@ -1,10 +1,10 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:turkiye_yazilim_staj/feature/all_comments/view/al_comment.dart';
 import 'package:turkiye_yazilim_staj/feature/cart/view/cart_view.dart';
-import 'package:turkiye_yazilim_staj/feature/favourite/view/favourite_view.dart';
-import 'package:turkiye_yazilim_staj/feature/profile/view/profile_view.dart';
+import 'package:turkiye_yazilim_staj/feature/home/view/favourite_view.dart';
+import 'package:turkiye_yazilim_staj/feature/home/view/profile/profile_view.dart';
+import 'package:turkiye_yazilim_staj/feature/product_detail/view/al_comment.dart';
 
 part 'main_widget.dart';
 
