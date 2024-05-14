@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/feature/address/adress_view.dart';
-import 'package:turkiye_yazilim_staj/feature/cards/view/widget/add_new_card_view.dart';
+import 'package:turkiye_yazilim_staj/feature/profile/cards/view/widget/add_new_card_view.dart';
 
 class CardsView extends StatelessWidget {
   const CardsView({super.key});

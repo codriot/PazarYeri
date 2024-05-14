@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:turkiye_yazilim_staj/feature/home/model/Profile_model.dart';
+import 'package:turkiye_yazilim_staj/feature/profile/profile/model/Profile_model.dart';
 
 class ProfileViewModel {
   List<ProfileModel> profiles = [

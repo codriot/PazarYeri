@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:turkiye_yazilim_staj/feature/login/view/login_second.dart';
+import 'package:turkiye_yazilim_staj/feature/login/authentication/view/auth_view.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 import 'package:turkiye_yazilim_staj/product/widget/next_page_button.dart';
 

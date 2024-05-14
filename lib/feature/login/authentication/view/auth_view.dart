@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:turkiye_yazilim_staj/feature/login/view/login_third.dart';
+import 'package:turkiye_yazilim_staj/feature/login/new_profile/view/login_third.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 import 'package:turkiye_yazilim_staj/product/widget/next_page_button.dart';
 

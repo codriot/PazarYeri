@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:turkiye_yazilim_staj/feature/home/viewmodel/profile_model_view.dart';
+import 'package:turkiye_yazilim_staj/feature/profile/profile/viewmodel/profile_model_view.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
+import 'package:turkiye_yazilim_staj/product/util/mixin/custom_gradient.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -10,14 +11,16 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     var profiles = ProfileViewModel().profiles;
 
-    return Scaffold(
-        body: SingleChildScrollView(
+    return Container(
+      decoration: BoxDecoration(
+        gradient: CustomGradient.linearGradient(),
+      ),
       child: Center(
         child: Container(
           height: Get.height * 0.8,
-          width: Get.width * 0.9,
+          width: Get.width,
           decoration: BoxDecoration(
-              color: Colors.green, borderRadius: BorderRadius.circular(23)),
+              color: Colors.white, borderRadius: BorderRadius.circular(23)),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
             child: Column(
@@ -25,6 +28,7 @@ class ProfileView extends StatelessWidget {
                 _profileReview(context),
                 Expanded(
                   child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: ProfileViewModel().profiles.length,
                     itemBuilder: (BuildContext context, int index) {
                       return _sectionButton(context,
@@ -39,7 +43,7 @@ class ProfileView extends StatelessWidget {
           ),
         ),
       ),
-    ));
+    );
   }
 
   Column _sectionButton(BuildContext context,

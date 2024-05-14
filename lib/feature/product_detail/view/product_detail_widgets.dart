@@ -9,24 +9,8 @@ class StarAndComment extends StatelessWidget {
       child: Row(
         children: [
           // Yıldızlar
-          Container(
-            width: 30,
-            height: 30,
-            decoration: BoxDecoration(
-              color: Colors.green[300],
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Text(
-                ProductDetailViewModel().profileViewModel.star.toString(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
+          StarPoint(
+              text: ProductDetailViewModel().profileViewModel.star.toString()),
 
           const Stars(rating: 4.3),
           // Değerlendirme sayısı
