@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
-import 'package:turkiye_yazilim_staj/product/widget/search_bar.dart';
+import 'package:turkiye_yazilim_staj/product/widget/search_bar_general.dart';
 
 class FavouriteView extends StatelessWidget {
   const FavouriteView({super.key});
@@ -12,7 +12,9 @@ class FavouriteView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(
           children: [
-            const CustomSearchBar(hintText: "favorilerde ara..."),
+            const GeneralSearchBar(
+              hintText: 'favorilerde ara...',
+            ),
             const Spacer(),
             Expanded(
               flex: 25,
@@ -37,11 +39,11 @@ class FavouriteView extends StatelessWidget {
 
 class UrunKarti extends StatelessWidget {
   const UrunKarti({
-    super.key,
     required this.urunAdi,
     required this.marka,
     required this.fiyat,
     required this.gorselUrl,
+    super.key,
   });
 
   final String urunAdi;
@@ -71,7 +73,7 @@ class UrunKarti extends StatelessWidget {
                   height: 130,
                   width: 130,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: Image.asset(
@@ -88,11 +90,12 @@ class UrunKarti extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Flexible(
-                        fit: FlexFit.loose,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: Text(urunAdi,
-                              style: Theme.of(context).textTheme.bodyMedium),
+                          child: Text(
+                            urunAdi,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
                         ),
                       ),
                       Text(
@@ -106,9 +109,9 @@ class UrunKarti extends StatelessWidget {
                         children: [
                           Card(
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8),
                               child: Text(
-                                "Kargo Bedava",
+                                'Kargo Bedava',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
@@ -119,16 +122,18 @@ class UrunKarti extends StatelessWidget {
                           const SizedBox(width: 3),
                           Card(
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text("Hızlı teslimat",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(fontSize: 10)),
+                              padding: const EdgeInsets.all(8),
+                              child: Text(
+                                'Hızlı teslimat',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(fontSize: 10),
+                              ),
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -143,8 +148,10 @@ class UrunKarti extends StatelessWidget {
                     elevation: 4,
                   ),
                   onPressed: () {},
-                  child: const Text('Sepete Ekle',
-                      style: TextStyle(color: Colors.white)),
+                  child: const Text(
+                    'Sepete Ekle',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ),

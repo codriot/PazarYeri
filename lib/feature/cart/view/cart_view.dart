@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/product/widget/comment_ui.dart';
-import 'package:turkiye_yazilim_staj/product/widget/search_bar.dart';
+import 'package:turkiye_yazilim_staj/product/widget/search_bar_general.dart';
 
 class CartView extends StatelessWidget {
   const CartView({super.key});
@@ -15,14 +15,18 @@ class CartView extends StatelessWidget {
             flex: 8,
             child: Padding(
               padding: EdgeInsets.only(
-                  top: Get.width * 0.03,
-                  left: Get.height * 0.03,
-                  right: Get.height * 0.03),
+                top: Get.width * 0.03,
+                left: Get.height * 0.03,
+                right: Get.height * 0.03,
+              ),
               child: Column(
                 children: [
                   const Expanded(
-                      flex: 2,
-                      child: CustomSearchBar(hintText: "favorilerde ara...")),
+                    flex: 2,
+                    child: GeneralSearchBar(
+                      hintText: 'favorilerde ara...',
+                    ),
+                  ),
                   const Spacer(),
                   Expanded(
                     flex: 20,
@@ -50,16 +54,17 @@ class CartView extends StatelessWidget {
     return Container(
       height: Get.height * 0.1,
       decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 10,
-              spreadRadius: 5,
-              offset: Offset(0, 3),
-            ),
-          ],
-          borderRadius: BorderRadius.circular(20)),
+        color: Colors.white,
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 10,
+            spreadRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: Row(
         // crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -69,15 +74,17 @@ class CartView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("368,00₺", style: Theme.of(context).textTheme.titleLarge),
-              Text("TOPLAM TUTAR",
-                  style: Theme.of(context).textTheme.bodySmall),
+              Text('368,00₺', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'TOPLAM TUTAR',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
             ],
           ),
           ElevatedButton(
             onPressed: () {},
             child: Text(
-              "Alışverişi Tamamla",
+              'Alışverişi Tamamla',
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Colors.white,
                   ),
@@ -94,93 +101,99 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Card(
-        elevation: 5,
-        color: Colors.grey.shade100,
-        margin: const EdgeInsets.only(bottom: 20),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: InkWell(
-          onTap: () {
-            // Ürüne tıklandığında yapılacak işlemler
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(top: 40),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 130,
-                      width: 130,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.asset(
-                            "assets/images/productPhoto.png",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
+    return Stack(
+      children: [
+        Card(
+          elevation: 5,
+          color: Colors.grey.shade100,
+          margin: const EdgeInsets.only(bottom: 20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: InkWell(
+            onTap: () {
+              // Ürüne tıklandığında yapılacak işlemler
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 45),
+              child: Column(
+                children: [
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 130),
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Text(
-                            "El kremi - Dynamic 100 ml Nivea",
-                            style: Theme.of(context).textTheme.bodyMedium,
+                        SizedBox(
+                          height: 130,
+                          width: 130,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.asset(
+                                'assets/images/productPhoto.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ),
-                        Text(
-                          "100,00₺",
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        Row(
-                          children: [
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Kargo Bedava",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(fontSize: 10),
-                                ),
+                        Flexible(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'El kremi - Dynamic 100 ml Nivea',
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
-                            ),
-                            const SizedBox(width: 3),
-                            Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text("Hızlı teslimat",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(fontSize: 10)),
+                              Text(
+                                '100,00₺',
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
-                            ),
-                          ],
-                        )
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              Row(
+                                children: [
+                                  Card(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Text(
+                                        'Kargo Bedava',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(fontSize: 10),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 3),
+                                  Card(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Text(
+                                        'Hızlı teslimat',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(fontSize: 10),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-      Container(
+        Container(
           height: 40,
           width: double.infinity,
           decoration: const BoxDecoration(
@@ -205,22 +218,26 @@ class CartItem extends StatelessWidget {
                 text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                        text: 'Satıcı: ',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Colors.grey.shade700,
-                            )),
+                      text: 'Satıcı: ',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Colors.grey.shade700,
+                          ),
+                    ),
                     TextSpan(
-                        text: 'Emre Armağan',
-                        style: Theme.of(context).textTheme.bodyMedium),
+                      text: 'Emre Armağan',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ],
                 ),
               ),
               const SizedBox(
                 width: 50,
               ),
-              const StarPoint(text: "4.3")
+              const StarPoint(text: '4.3'),
             ],
-          )),
-    ]);
+          ),
+        ),
+      ],
+    );
   }
 }

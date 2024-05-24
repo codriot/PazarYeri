@@ -1,35 +1,52 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/foundation.dart';
-
-class Kullanici {
-  String ad;
-  String soyad;
-  DateTime dogumTarihi;
-  String cinsiyet;
-  String epostaAdresi;
-  String egitimDurumu;
-  List<String> hobiler;
-
-  Kullanici({
-    required this.ad,
-    required this.soyad,
-    required this.dogumTarihi,
-    required this.cinsiyet,
-    required this.epostaAdresi,
-    required this.egitimDurumu,
-    required this.hobiler,
+/// This file contains the model class for the new user details.
+class UserModel {
+  UserModel({
+    this.gender,
+    this.firstName,
+    this.lastName,
+    this.hobbies,
+    //? doğum gününü DateTime türüne çevirmek için String türünde bir değişken tanımlamalı mıyım?
+    this.birthDate,
+    this.wallet = 0,
+    this.emailAddress,
+    this.educationStatus,
   });
 
-  @override
-  bool operator ==(covariant Kullanici other) {
-    if (identical(this, other)) return true;
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      gender: json['gender'] as String,
+      firstName: json['firstName'] as String,
+      lastName: json['lastName'] as String,
+      hobbies: json['hobbies'] as String?,
+      birthDate: (json['birthDate']) as String,
+      wallet: json['wallet'] as int,
+      emailAddress: json['emailAddress'] as String,
+      educationStatus: json['educationStatus'] as String,
+    );
+  }
+  String? gender;
+  String? firstName;
+  String? lastName;
+  String? hobbies;
+  String? birthDate;
+  List<dynamic>? credit_card = List.empty();
+  int? wallet;
+  String? emailAddress;
+  List<dynamic>? cart = List.empty();
+  String? educationStatus;
 
-    return other.ad == ad &&
-        other.soyad == soyad &&
-        other.dogumTarihi == dogumTarihi &&
-        other.cinsiyet == cinsiyet &&
-        other.epostaAdresi == epostaAdresi &&
-        other.egitimDurumu == egitimDurumu &&
-        listEquals(other.hobiler, hobiler);
+  Map<String, dynamic> toJson() {
+    return {
+      'gender': gender,
+      'firstName': firstName,
+      'lastName': lastName,
+      'hobbies': hobbies,
+      'birthDate': birthDate,
+      'credit_card': null,
+      'wallet': wallet,
+      'emailAddress': emailAddress,
+      'cart': null,
+      'educationStatus': educationStatus,
+    };
   }
 }

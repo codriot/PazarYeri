@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:turkiye_yazilim_staj/feature/home/view_model/home_view_model.dart';
 import 'package:turkiye_yazilim_staj/main.dart';
 
 void main() {
@@ -27,4 +27,20 @@ void main() {
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
   });
+
+  test(
+    'test products',
+    () {
+      final controller = HomeController();
+      expect(controller.products.length, 0);
+    },
+  );
+  test(
+    'test fetchDiscount',
+    () {
+      final controller = HomeController();
+      controller.fetchDiscount();
+      expect(controller.bigDiscountImage.value, '');
+    },
+  );
 }

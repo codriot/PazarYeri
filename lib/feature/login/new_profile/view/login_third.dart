@@ -1,126 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:get/get.dart';
+import 'package:turkiye_yazilim_staj/feature/login/new_profile/view/util/form_util.dart';
+import 'package:turkiye_yazilim_staj/feature/login/new_profile/viewmodel/new_profile_model_view.dart';
+import 'package:turkiye_yazilim_staj/product/widget/custom_appbar.dart';
 
+/// Registration form for user registration
 class RegistrationForm extends StatefulWidget {
   const RegistrationForm({super.key});
 
   @override
-  _RegistrationFormState createState() => _RegistrationFormState();
+  State<RegistrationForm> createState() => _RegistrationFormState();
 }
 
-class _RegistrationFormState extends State<RegistrationForm> {
-  final _formKey = GlobalKey<FormState>();
-  final List<String> genders = ['Male', 'Female', 'Other'];
-  final List<String> educationLevels = [
-    'High School',
-    'Undergraduate',
-    'Graduate',
-    'PhD'
-  ];
-  final List<String> hobbies = ['Reading', 'Swimming', 'Running', 'Cycling'];
-
-  String? firstName;
-  String? lastName;
-  String? gender;
-  String? educationLevel;
-  String? email;
-  String? hobby;
-
+class _RegistrationFormState extends State<RegistrationForm>
+    with RegistrationUtil {
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(RegistrationController());
+
     return Scaffold(
-      appBar: AppBar(title: const Text('PAZARYERİ')),
+      appBar: const CustomAppBar(isWhite: true),
       body: Form(
-        key: _formKey,
+        key: controller.formKey,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _formSample(title: 'ADINIZ', onsave: firstName),
-              _formSample(title: "SOYADINIZ", onsave: lastName),
-              //! pin code textfield değil normal textfield alınacak
-              _pinCodeTextfield(context),
-              _dropDownButton(
-                menuItem: genders,
-                onSave: gender,
+            children: [
+              formSample(
+                title: 'ADINIZ',
+                controller: controller.firstnameController,
+                validator: validateName,
+              ),
+              formSample(
+                title: 'SOYADINIZ',
+                controller: controller.lastNameController,
+                validator: validateName,
+              ),
+              dateInput(context),
+              dropDownButton(
+                menuItem: controller.genders,
+                onSave: (value) => controller.model.gender = value,
                 title: 'CINSIYET',
               ),
-              _formSample(title: "EMAIL ADRESINIZ", onsave: email),
-              _dropDownButton(
-                  title: 'EGITIM SEVİYENİZ',
-                  menuItem: educationLevels,
-                  onSave: educationLevel),
-              _dropDownButton(
-                  title: "HOBİLERİNİZ", menuItem: hobbies, onSave: hobby),
-              _SubmitButton(),
+              formSample(
+                title: 'EMAIL ADRESINIZ',
+                controller: controller.emailController,
+                validator: validateEmail,
+              ),
+              dropDownButton(
+                title: 'EGITIM SEVİYENİZ',
+                menuItem: controller.educationLevels,
+                onSave: (value) => controller.model.educationStatus = value,
+              ),
+              dropDownButton(
+                title: 'HOBİLERİNİZ',
+                menuItem: controller.hobbies,
+                onSave: (value) => controller.model.hobbies = value,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  controller.saveData();
+
+                  if (controller.formKey.currentState!.validate()) {
+                    controller.formKey.currentState!.save();
+
+                    // Add your logic to save data here (e.g., call an API, store in database)
+                    print('Saved data:');
+                    print('  First name: ${controller.model.firstName}');
+                    print('  Last name: ${controller.model.lastName}');
+                    print('  Date: ');
+                    print('  Gender: ${controller.model.gender}');
+                    print('  Email: ${controller.model.emailAddress}');
+                    print(
+                      '  Education level: ${controller.model.educationStatus}',
+                    );
+                    print('  Hobby: ${controller.model.hobbies}');
+
+                    // You can also navigate to another page after saving
+                    // Get.to(NextPage());
+                  }
+                },
+                child: const Text('Gönder'),
+              ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Center _SubmitButton() {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          final form = _formKey.currentState;
-          if (form!.validate()) {
-            form.save();
-            // Todo: submit the form
-          }
-        },
-        child: const Text(
-          'Submit',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-    );
-  }
-
-  Column _dropDownButton(
-      {required String title,
-      required List<String> menuItem,
-      required onSave}) {
-    return Column(
-      children: [
-        Text(title),
-        DropdownButtonFormField(
-          items: menuItem.map((menuItems) {
-            return DropdownMenuItem(
-              value: menuItems,
-              child: Text(menuItems),
-            );
-          }).toList(),
-          onChanged: (value) => setState(() => onSave = value),
-          decoration: const InputDecoration(),
-        ),
-      ],
-    );
-  }
-
-  PinCodeTextField _pinCodeTextfield(BuildContext context) {
-    return PinCodeTextField(
-      appContext: context,
-      length: 3,
-      obscureText: false,
-      animationType: AnimationType.fade,
-      pinTheme: PinTheme(shape: PinCodeFieldShape.box),
-      animationDuration: const Duration(milliseconds: 300),
-      onChanged: (value) {},
-    );
-  }
-
-  Column _formSample({required String title, required onsave}) {
-    return Column(
-      children: [
-        Text(title),
-        TextFormField(
-          decoration: const InputDecoration(),
-          onSaved: (value) => onsave = value,
-        ),
-      ],
     );
   }
 }

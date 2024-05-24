@@ -17,8 +17,8 @@ class ProductDetailView extends StatefulWidget {
 class _ProductDetailViewState extends State<ProductDetailView> {
   @override
   Widget build(BuildContext context) {
-    int count = 0;
-    var hata = "Hata  oluştu";
+    var count = 0;
+    const hata = 'Hata  oluştu';
     // getx ile state yönetimi yapılacak
     void incrementCount() {
       setState(() {
@@ -38,12 +38,37 @@ class _ProductDetailViewState extends State<ProductDetailView> {
     return Scaffold(
       body: ListView(
         children: [
-          // Ürün fotoğrafı
-          productPhoto(context),
-          // Altta sheet şeklinde gelen bir yazı
-          _firstReview(hata, context, decrementCount, count, incrementCount),
-          // Fiyat ve sepete ekle
-          _cardAndComment(context, hata)
+          SizedBox(
+            height: 1280,
+            width: context.width,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                // Ürün fotoğrafı
+                productPhoto(context),
+                // Altta sheet şeklinde gelen bir yazı
+                Positioned(
+                  top: 420,
+                  left: 0,
+                  right: 0,
+                  child: _firstReview(
+                    hata,
+                    context,
+                    decrementCount,
+                    count,
+                    incrementCount,
+                  ),
+                ),
+                // Fiyat ve sepete ekle
+                Positioned(
+                  top: 670,
+                  left: 0,
+                  right: 0,
+                  child: _cardAndComment(context, hata),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -68,7 +93,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
       ),
       //todo:  düzenleme yapılacak
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -90,7 +115,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 color: ColorsProject.grey.withOpacity(0.06),
                 borderRadius: BorderRadius.circular(21),
                 border: Border.all(
-                    color: ColorsProject.grey.withOpacity(0.3), width: 1.5),
+                  color: ColorsProject.grey.withOpacity(0.3),
+                  width: 1.5,
+                ),
               ),
               child: Stack(
                 children: [
@@ -110,7 +137,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 50),
-                        backgroundColor: ColorsProject.apricotSorbet,
+                        backgroundColor: Colors.white,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(21),
@@ -118,12 +145,15 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                           ),
                         ),
                       ),
-                      child: const Text("TÜMÜNÜ GÖR"),
+                      child: Text(
+                        'TÜMÜNÜ GÖR ', //todo: tümünü görün yanında parantez içinde yorum sayısı yazsın
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ),
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -131,11 +161,12 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   }
 
   Container _firstReview(
-      String hata,
-      BuildContext context,
-      void Function() decrementCount,
-      int count,
-      void Function() incrementCount) {
+    String hata,
+    BuildContext context,
+    void Function() decrementCount,
+    int count,
+    void Function() incrementCount,
+  ) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
@@ -149,10 +180,12 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Ürün adı
-          Text(ProductDetailViewModel().profileViewModel.name ?? hata,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: 24,
-                  )),
+          Text(
+            ProductDetailViewModel().profileViewModel.name ?? hata,
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: 24,
+                ),
+          ),
           // Ürün açıklaması
           Text(
             ProductDetailViewModel().profileViewModel.description ?? hata,
@@ -183,7 +216,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               const Text('ADET'),
               _counterWidget(decrementCount, count, incrementCount),
             ],
-          )
+          ),
 
           // Butonlar
         ],
@@ -199,12 +232,13 @@ class _ProductDetailViewState extends State<ProductDetailView> {
           fit: FlexFit.tight,
           child: ListTile(
             title: Text(
-                "${ProductDetailViewModel().profileViewModel.price!.toStringAsFixed(2)} ₺",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 16,
-                    )),
+              '${ProductDetailViewModel().profileViewModel.price!.toStringAsFixed(2)} ₺',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 16,
+                  ),
+            ),
             subtitle: Text(
-              "Toplam Tutar",
+              'Toplam Tutar',
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     fontSize: 12,
                   ),
@@ -242,18 +276,21 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }
 
-  Container _counterWidget(void Function() decrementCount, int count,
-      void Function() incrementCount) {
+  Container _counterWidget(
+    void Function() decrementCount,
+    int count,
+    void Function() incrementCount,
+  ) {
     return Container(
       width: 100,
       height: 32,
       decoration: BoxDecoration(
-        color: ColorsProject.grey.withOpacity(0.07),
+        color: ColorsProject.grey.withOpacity(0.15),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -272,15 +309,22 @@ class _ProductDetailViewState extends State<ProductDetailView> {
     return SizedBox(
       height: 30,
       width: 30,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
+      child: InkWell(
+        onTap: onPressed,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 1,
+                spreadRadius: 1,
+                offset: Offset(1, 2),
+              ),
+            ],
           ),
-        ),
-        onPressed: onPressed,
-        child: Center(
           child: Icon(
             icon,
             size: 10,
@@ -305,19 +349,19 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         ),
         // Geri tuşu
         Positioned(
-          top: 40.0,
-          left: 15.0,
+          top: 40,
+          left: 15,
           child: MinimalButton(
             icon: Icons.arrow_back,
-            onPressed: () => Get.back(),
+            onPressed: Get.back,
           ),
         ),
         Positioned(
-          top: 40.0,
-          right: 15.0,
+          top: 40,
+          right: 15,
           child: MinimalButton(
             icon: Icons.favorite,
-            onPressed: () => Get.back(),
+            onPressed: Get.back,
           ),
         ),
       ],

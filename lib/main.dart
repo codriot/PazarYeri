@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:turkiye_yazilim_staj/feature/Main/main_screen.dart';
 import 'package:turkiye_yazilim_staj/product/Theme/Theme.dart';
+import 'package:turkiye_yazilim_staj/product/init/init_project.dart';
+import 'package:turkiye_yazilim_staj/product/navigator/navigator.dart';
 
-void main() {
+Future<void> main() async {
+  await InitProject().initProject();
   runApp(const MyApp());
 }
 
@@ -17,7 +19,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: AppTheme.productTheme(context),
       debugShowCheckedModeBanner: false,
-      home: const MainScreen(),
+      initialRoute: NavigateMixin.init,
+      getPages: NavigateMixin.routes,
     );
   }
 }

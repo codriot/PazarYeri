@@ -1,41 +1,50 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:turkiye_yazilim_staj/core/gen/assets.gen.dart';
 import 'package:turkiye_yazilim_staj/feature/cart/view/cart_view.dart';
 import 'package:turkiye_yazilim_staj/feature/favourite/favourite_view.dart';
 import 'package:turkiye_yazilim_staj/feature/home/view/home.dart';
+import 'package:turkiye_yazilim_staj/feature/navigation_bar/viewmodel/navbar_view_model.dart';
 import 'package:turkiye_yazilim_staj/feature/profile/profile/view/profile_view.dart';
 import 'package:turkiye_yazilim_staj/product/widget/custom_appbar.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class NavbarView extends StatefulWidget {
+  const NavbarView({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<NavbarView> createState() => _NavbarViewState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _NavbarViewState extends State<NavbarView> {
+  final controller = Get.put(NavBarController());
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/BackgroundImage.png"),
-          fit: BoxFit.cover,
+    return Obx(
+      () => Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(Assets.images.backgroundImage.path),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: CustomAppBar(
-          isTransparent: currentIndex != 3,
-          isWhite: currentIndex == 1 || currentIndex == 2,
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: CustomAppBar(
+            isTransparent: currentIndex != 3,
+            isWhite: currentIndex == 1 || currentIndex == 2,
+          ),
+          body: IndexedStack(
+            index: currentIndex,
+            children: children,
+          ),
+          bottomNavigationBar: _bottomNavigationBar(),
         ),
-        body: children[currentIndex],
-        bottomNavigationBar: _bottomNavigationBar(),
       ),
     );
   }
 
-  int currentIndex = 0;
+  int get currentIndex => controller.tabIndex.value;
   final List<Widget> children = [
     const HomeView(),
     const CartView(),
@@ -43,19 +52,11 @@ class _MainScreenState extends State<MainScreen> {
     const ProfileView(),
   ];
 
-  void onTabTapped(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-  }
-
   Container _bottomNavigationBar() {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           transform: GradientRotation(BorderSide.strokeAlignCenter),
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
           colors: [
             Color(0xFFDAC6B5),
             Color(0xFFb59376),
@@ -63,9 +64,9 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       child: CustomNavigationBar(
-        iconSize: 30.0,
+        iconSize: 30,
         currentIndex: currentIndex,
-        onTap: onTabTapped,
+        onTap: controller.changeTabIndex,
         selectedColor: Colors.white,
         strokeColor: Colors.white12,
         unSelectedColor: Colors.white,
@@ -78,7 +79,7 @@ class _MainScreenState extends State<MainScreen> {
             icon: const Icon(Icons.shopping_cart),
           ),
           CustomNavigationBarItem(
-            icon: const Icon((Icons.favorite)),
+            icon: const Icon(Icons.favorite),
           ),
           CustomNavigationBarItem(
             icon: const Icon(Icons.person),

@@ -4,11 +4,12 @@ import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 import 'package:turkiye_yazilim_staj/product/util/mixin/custom_gradient.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar(
-      {super.key,
-      this.hasNotification = false,
-      required this.isWhite,
-      this.isTransparent = false});
+  const CustomAppBar({
+    super.key,
+    this.hasNotification = false,
+    required this.isWhite,
+    this.isTransparent = false,
+  });
   final bool? hasNotification;
   final bool? isWhite;
   final bool? isTransparent;

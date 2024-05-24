@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/feature/profile/profile/viewmodel/profile_model_view.dart';
+import 'package:turkiye_yazilim_staj/product/navigator/navigator.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 import 'package:turkiye_yazilim_staj/product/util/mixin/custom_gradient.dart';
 
@@ -9,7 +10,7 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var profiles = ProfileViewModel().profiles;
+    final profiles = ProfileViewModel().profiles;
 
     return Container(
       decoration: BoxDecoration(
@@ -20,9 +21,11 @@ class ProfileView extends StatelessWidget {
           height: Get.height * 0.8,
           width: Get.width,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(23)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(23),
+          ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Column(
               children: [
                 _profileReview(context),
@@ -31,10 +34,14 @@ class ProfileView extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: ProfileViewModel().profiles.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return _sectionButton(context,
-                          title: profiles[index].name,
-                          icon: profiles[index].icon,
-                          route: profiles[index].route);
+                      return _sectionButton(
+                        context,
+                        title: profiles[index].name,
+                        icon: profiles[index].icon,
+                        route: profiles[index].route,
+                        canBack:
+                            profiles[index].route != Navigate.welcome.route,
+                      );
                     },
                   ),
                 ),
@@ -46,23 +53,40 @@ class ProfileView extends StatelessWidget {
     );
   }
 
-  Column _sectionButton(BuildContext context,
-      {required String title, required IconData icon, String? route}) {
+  Column _sectionButton(
+    BuildContext context, {
+    required String title,
+    required IconData icon,
+    required String? route,
+    required bool canBack,
+  }) {
     return Column(
       children: [
         const Divider(),
         ListTile(
-          title: Text(title,
-              style: Theme.of(context)
-                  .textTheme
-                  .labelMedium!
-                  .copyWith(color: ColorsProject.apricotSorbet)),
+          title: Text(
+            title,
+            style: Theme.of(context)
+                .textTheme
+                .labelMedium!
+                .copyWith(color: ColorsProject.apricotSorbet),
+          ),
           leading: Icon(
             icon,
             color: ColorsProject.apricotSorbet,
           ),
           //todo: basınca yönlendirme yapılacak
-          // onTap: () => Get.toNamed(),
+          onTap: () => canBack
+              ? Get.toNamed(route!)
+              : Get.defaultDialog(
+                  title: 'Onay',
+                  middleText: 'Yönlendirme yapmak istediğinize emin misiniz?',
+                  textConfirm: 'Evet',
+                  textCancel: 'Hayır',
+                  confirmTextColor: Colors.white,
+                  onConfirm: () => Get.offAndToNamed(route!),
+                  onCancel: () {},
+                ),
         ),
       ],
     );
@@ -72,13 +96,17 @@ class ProfileView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
-        title: Text('Emre Armağan',
-            style: Theme.of(context).textTheme.titleLarge!),
-        subtitle: Text('PREMIUM',
-            style: Theme.of(context)
-                .textTheme
-                .labelMedium!
-                .copyWith(color: ColorsProject.apricotSorbet)),
+        title: Text(
+          'Emre Armağan',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        subtitle: Text(
+          'PREMIUM',
+          style: Theme.of(context)
+              .textTheme
+              .labelMedium!
+              .copyWith(color: ColorsProject.apricotSorbet),
+        ),
         leading: const CircleAvatar(
           radius: 50,
           backgroundImage: AssetImage('assets/images/profilepp.png'),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:turkiye_yazilim_staj/product/widget/search_bar.dart';
+import 'package:turkiye_yazilim_staj/product/widget/search_bar_general.dart';
 
 class PastOrdersView extends StatelessWidget {
   const PastOrdersView({super.key});
@@ -11,7 +11,7 @@ class PastOrdersView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Spacer(),
-          const CustomSearchBar(
+          const GeneralSearchBar(
             hintText: 'Ara...',
           ),
           const Spacer(),
