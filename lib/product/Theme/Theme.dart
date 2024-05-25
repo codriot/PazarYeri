@@ -16,6 +16,7 @@ mixin AppTheme {
       buttonTheme: const ButtonThemeData(
         buttonColor: ColorsProject.apricotSorbet,
       ),
+      scaffoldBackgroundColor: Colors.white,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(

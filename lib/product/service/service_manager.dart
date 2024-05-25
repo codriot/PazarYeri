@@ -95,23 +95,23 @@ enum ServicePath {
       case ServicePath.product_search:
         return '/search_products?term=';
       case ServicePath.postCart:
-        return '/users/cart';
+        return '/cart';
       //{     "user_id": 1,     "product_id": 1,     "amount": 2 } bu şekilde post edilecek
       case ServicePath.credit_card:
-        return '/users/credit_card';
+        return '/credit_card';
       //{     "user_id": 1,     "card_number": "1234-5678-9012-3456",     "expiry_date": "12/25",     "card_holder_name": "Ali Veli",     "cvv": "123" } bu şekilde post edilecek
       case ServicePath.discount:
         return '/discount';
       case ServicePath.influencer:
         return '/influencers';
       case ServicePath.favourite:
-        return '/favourite';
+        return '/favorites/${StorageUtil().getUserId()}';
       case ServicePath.wallet:
         return '/wallet';
       case ServicePath.adress:
         return '/adress';
       case ServicePath.getCart:
-        return '/users/cart/${StorageUtil().getUserId()}';
+        return '/cart/${StorageUtil().getUserId()}';
     }
   }
 }

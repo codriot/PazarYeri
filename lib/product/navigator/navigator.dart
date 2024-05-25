@@ -1,18 +1,18 @@
 import 'package:get/get.dart';
-import 'package:turkiye_yazilim_staj/feature/cart/view/cart_view.dart';
-import 'package:turkiye_yazilim_staj/feature/favourite/favourite_view.dart';
-import 'package:turkiye_yazilim_staj/feature/home/view/home.dart';
+import 'package:turkiye_yazilim_staj/feature/home/Home/view/home.dart';
+import 'package:turkiye_yazilim_staj/feature/home/cart/view/cart_view.dart';
+import 'package:turkiye_yazilim_staj/feature/home/favourite/view/favourite_view.dart';
+import 'package:turkiye_yazilim_staj/feature/home/navigation_bar/view/navigation_bar.dart';
+import 'package:turkiye_yazilim_staj/feature/home/profile/address/adress_view.dart';
+import 'package:turkiye_yazilim_staj/feature/home/profile/cards/view/cards_view.dart';
+import 'package:turkiye_yazilim_staj/feature/home/profile/past_orders/view/past_orders_view.dart';
+import 'package:turkiye_yazilim_staj/feature/home/profile/profile/view/profile_view.dart';
+import 'package:turkiye_yazilim_staj/feature/home/profile/wallet/view/wallet_view.dart';
 import 'package:turkiye_yazilim_staj/feature/login/authentication/view/auth_view.dart';
 import 'package:turkiye_yazilim_staj/feature/login/new_profile/view/login_third.dart';
 import 'package:turkiye_yazilim_staj/feature/login/welcome/view/welcome_view.dart';
-import 'package:turkiye_yazilim_staj/feature/navigation_bar/view/navigation_bar.dart';
-import 'package:turkiye_yazilim_staj/feature/product_detail/view/product_detail.dart';
-import 'package:turkiye_yazilim_staj/feature/profile/address/adress_view.dart';
-import 'package:turkiye_yazilim_staj/feature/profile/cards/view/cards_view.dart';
-import 'package:turkiye_yazilim_staj/feature/profile/past_orders/view/past_orders_view.dart';
-import 'package:turkiye_yazilim_staj/feature/profile/profile/view/profile_view.dart';
-import 'package:turkiye_yazilim_staj/feature/profile/wallet/view/wallet_view.dart';
-import 'package:turkiye_yazilim_staj/feature/search/view/search_view.dart';
+import 'package:turkiye_yazilim_staj/feature/products/product_detail/view/product_detail.dart';
+import 'package:turkiye_yazilim_staj/feature/products/search/view/search_view.dart';
 import 'package:turkiye_yazilim_staj/product/util/storage/storage_util.dart';
 
 mixin NavigateMixin {
@@ -28,7 +28,7 @@ mixin NavigateMixin {
           : const NavbarView(),
     ), //todo: change to welcome view later
     GetPage(name: Navigate.home.route, page: () => const HomeView()),
-    GetPage(name: Navigate.favourite.route, page: () => const FavouriteView()),
+    GetPage(name: Navigate.favourite.route, page: () => const FavoriteView()),
     GetPage(name: Navigate.cart.route, page: () => const CartView()),
     GetPage(name: Navigate.profile.route, page: () => const ProfileView()),
     GetPage(name: Navigate.wallet.route, page: () => const WalletView()),

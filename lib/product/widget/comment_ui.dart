@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:turkiye_yazilim_staj/feature/product_detail/model/comment_model.dart';
+import 'package:turkiye_yazilim_staj/feature/products/product_detail/model/comment_model.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 
 class CommentSection extends StatelessWidget {
-  const CommentSection({super.key, required this.comment});
+  const CommentSection({required this.comment, super.key});
   final CommentModel comment;
 
   @override
@@ -14,18 +14,20 @@ class CommentSection extends StatelessWidget {
           title: Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: IntrinsicHeight(
-              child: Row(children: [
-                Stars(
-                  rating: comment.rating!,
-                ),
-                const CustomVerticalDivider(),
-                Text(
-                  "${comment.name!} - ${comment.date!}",
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color: ColorsProject.grey,
-                      ),
-                ),
-              ]),
+              child: Row(
+                children: [
+                  Stars(
+                    rating: comment.rating!,
+                  ),
+                  const CustomVerticalDivider(),
+                  Text(
+                    '${comment.name!} - ${comment.date!}',
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: ColorsProject.grey,
+                        ),
+                  ),
+                ],
+              ),
             ),
           ),
           subtitle: Text(
@@ -48,7 +50,7 @@ class CommentSection extends StatelessWidget {
 }
 
 class Stars extends StatelessWidget {
-  const Stars({super.key, required this.rating});
+  const Stars({required this.rating, super.key});
   final double rating;
 
   @override
@@ -58,7 +60,7 @@ class Stars extends StatelessWidget {
         5,
         (index) => Icon(
           Icons.star,
-          size: 12.0,
+          size: 12,
           color: index < 5 - rating.floor()
               ? Colors.grey
               : ColorsProject.apricotSorbet,
@@ -99,7 +101,7 @@ class CustomVerticalDivider extends StatelessWidget {
 }
 
 class StarPoint extends StatelessWidget {
-  const StarPoint({super.key, required this.text});
+  const StarPoint({required this.text, super.key});
   final String text;
 
   @override
