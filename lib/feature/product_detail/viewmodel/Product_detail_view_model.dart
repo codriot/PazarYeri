@@ -1,20 +1,27 @@
-import 'package:turkiye_yazilim_staj/feature/product_detail/model/Product_detail_model.dart';
-import 'package:turkiye_yazilim_staj/feature/product_detail/model/dealer_model.dart';
+import 'package:get/get.dart';
+import 'package:turkiye_yazilim_staj/feature/search/model/searched_product_model.dart';
 
-class ProductDetailViewModel {
-  ProductDetailModel profileViewModel = ProductDetailModel(
-    name: 'M.Lawrence Serum',
-    description: 'Yüz bakım Serumu  PZ5354686',
-    description2:
-        'Yüzünüze parlaklık ve nem verir. Sivilce akne oluşumunu önler.  Üstelik içindeki C vitamini sayesinde vücudunuzun cilt bariyerini güçlendirir.',
-    price: 100.0,
-    imagePath: 'assets/images/productPhoto.png',
-    commentCount: 200,
-    star: 4.3,
-    commentList: [],
-    dealer: Dealer(
-        name: "Emre Armağan",
-        photoPath:
-            ''), //* normalde pathe assets\images\profilepp.png vercektim ama fotoğrafı tasarımda verilmemiş
-  );
+class ProductDetailViewModel extends GetxController {
+  // Ürün bilgilerini tutan observable değişken
+  Rx<SearchedProductItem?> product = Rx<SearchedProductItem?>(null);
+
+  // Ürün adedi için observable değişken
+  RxInt count = 1.obs;
+
+  // Gelen ürünü set eden metod
+  void setProduct(SearchedProductItem newProduct) {
+    product.value = newProduct;
+  }
+
+  // Ürün adedini artıran metod
+  void incrementCount() {
+    count.value++;
+  }
+
+  // Ürün adedini azaltan metod
+  void decrementCount() {
+    if (count.value > 1) {
+      count.value--;
+    }
+  }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:turkiye_yazilim_staj/feature/product_detail/view/product_detail.dart';
 import 'package:turkiye_yazilim_staj/feature/product_detail/viewmodel/comment_model_view.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 import 'package:turkiye_yazilim_staj/product/widget/comment_ui.dart';
@@ -16,15 +15,17 @@ class _AllCommentViewState extends State<AllCommentView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        _allComment(),
-        const Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: _commentAndAddCardWidget(),
-        ),
-      ]),
+      body: Stack(
+        children: [
+          _allComment(),
+          const Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: _commentAndAddCardWidget(),
+          ),
+        ],
+      ),
     );
   }
 
@@ -34,17 +35,19 @@ class _AllCommentViewState extends State<AllCommentView> {
       child: ListView(
         physics: const ScrollPhysics(),
         children: [
-          SellerReview(
-            PhotoPath: "assets/images/productPhoto.png",
-            hata: 'hata',
-            context: context,
-          ),
+          //Todo: commentlerin yanı sıra product detailin dealeri de eklenecek
+          // SellerReview(
+          //   photoPath: "assets/images/productPhoto.png",
+          //   hata: 'hata',
+          //   context: context,
+          // ),
           ListView.builder(
             shrinkWrap: true,
             itemCount: CommentModelView().comments.length,
             itemBuilder: (BuildContext context, int index) {
               return CommentSection(
-                  comment: CommentModelView().comments[index]);
+                comment: CommentModelView().comments[index],
+              );
             },
           ),
         ],
@@ -84,24 +87,26 @@ class _commentAndAddCardWidget extends StatelessWidget {
           Expanded(
             flex: 3,
             child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: ColorsProject.apricotSorbet),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  "Yorum Yap",
-                  style: TextStyle(color: ColorsProject.apricotSorbet),
-                )),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: ColorsProject.apricotSorbet),
+              ),
+              onPressed: () {},
+              child: const Text(
+                'Yorum Yap',
+                style: TextStyle(color: ColorsProject.apricotSorbet),
+              ),
+            ),
           ),
           const Expanded(child: SizedBox()),
           Expanded(
             flex: 3,
             child: ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  "Sepete Ekle",
-                  style: TextStyle(color: Colors.white),
-                )),
+              onPressed: () {},
+              child: const Text(
+                'Sepete Ekle',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ),
           const Expanded(child: SizedBox()),
         ],

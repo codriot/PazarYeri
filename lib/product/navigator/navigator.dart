@@ -13,6 +13,7 @@ import 'package:turkiye_yazilim_staj/feature/profile/past_orders/view/past_order
 import 'package:turkiye_yazilim_staj/feature/profile/profile/view/profile_view.dart';
 import 'package:turkiye_yazilim_staj/feature/profile/wallet/view/wallet_view.dart';
 import 'package:turkiye_yazilim_staj/feature/search/view/search_view.dart';
+import 'package:turkiye_yazilim_staj/product/util/storage/storage_util.dart';
 
 mixin NavigateMixin {
   static const String init = '/';
@@ -22,10 +23,9 @@ mixin NavigateMixin {
   static final List<GetPage<dynamic>> routes = [
     GetPage(
       name: NavigateMixin.init,
-      page: () => const ProductDetailView(),
-      //  StorageUtil().getUserId() == 0
-      //     ? const RegistrationForm()
-      //     : const NavbarView(),
+      page: () => StorageUtil().getUserId() == 0
+          ? const RegistrationForm()
+          : const NavbarView(),
     ), //todo: change to welcome view later
     GetPage(name: Navigate.home.route, page: () => const HomeView()),
     GetPage(name: Navigate.favourite.route, page: () => const FavouriteView()),

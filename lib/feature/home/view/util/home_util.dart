@@ -25,6 +25,10 @@ mixin HomeUtil on State<HomeView> {
           onTap: () {
             //controller.products[index].id, argüment vererek detay sayfasına yönlendirme yap
             //Todo : Tıklama işlemi buraya eklenebilir
+            Get.toNamed(
+              '/productDetail',
+              arguments: controller.products?[index],
+            );
           },
           child: CustomProductContainer(
             image: controller.products?[index].image,
@@ -74,10 +78,15 @@ mixin HomeUtil on State<HomeView> {
                     color: Colors.white,
                   ),
             ),
-            Image.network(
-              controller.bigDiscountImage?.value ??
-                  'https://picsum.photos/200/300',
-            ),
+            if (controller.bigDiscountImage?.value == null)
+              const CircularProgressIndicator()
+            else
+              Image.network(
+                controller.bigDiscountImage!.value,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Text('Yakında...');
+                },
+              ),
           ],
         ),
       ),
@@ -221,7 +230,10 @@ mixin HomeUtil on State<HomeView> {
         width: 30,
         height: 30,
       ),
-      label: Text(text),
+      label: Padding(
+        padding: const EdgeInsets.only(left: 8),
+        child: Text(text),
+      ),
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.black54,
         backgroundColor: Colors.white,

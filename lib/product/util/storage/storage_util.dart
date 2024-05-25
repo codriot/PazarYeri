@@ -1,5 +1,6 @@
 import 'package:get_storage/get_storage.dart';
 
+// ? singleton mı olmalı yoksa mixin mi olmalı?
 /// StorageUtil mixin
 class StorageUtil {
   /// Storage instance

@@ -2,11 +2,17 @@
 
 import 'package:dio/dio.dart';
 import 'package:turkiye_yazilim_staj/product/init/config/app_environment.dart';
+import 'package:turkiye_yazilim_staj/product/util/storage/storage_util.dart';
 
 /// This class is responsible for network operations
 class NetworkManager {
-  /// Constructor
-  NetworkManager() {
+  // Factory constructor to return the same instance
+  factory NetworkManager() {
+    return _instance;
+  }
+
+  // Private constructor for singleton pattern
+  NetworkManager._internal() {
     _dio = Dio(
       BaseOptions(
         baseUrl: _baseUrl,
@@ -17,6 +23,9 @@ class NetworkManager {
       ),
     );
   }
+  // Singleton instance
+  static final NetworkManager _instance = NetworkManager._internal();
+
   late Dio _dio;
   final String _baseUrl = AppEnvironment.baseUrl;
   final String _apiKey = AppEnvironment.apiKey;
@@ -67,7 +76,8 @@ enum ServicePath {
   User,
   product,
   product_search,
-  cart,
+  postCart,
+  getCart,
   credit_card,
   discount,
   influencer,
@@ -84,7 +94,7 @@ enum ServicePath {
         return '/products';
       case ServicePath.product_search:
         return '/search_products?term=';
-      case ServicePath.cart:
+      case ServicePath.postCart:
         return '/users/cart';
       //{     "user_id": 1,     "product_id": 1,     "amount": 2 } bu şekilde post edilecek
       case ServicePath.credit_card:
@@ -100,6 +110,8 @@ enum ServicePath {
         return '/wallet';
       case ServicePath.adress:
         return '/adress';
+      case ServicePath.getCart:
+        return '/users/cart/${StorageUtil().getUserId()}';
     }
   }
 }

@@ -24,15 +24,16 @@ class UserModel {
       educationStatus: json['educationStatus'] as String,
     );
   }
+  //todo kontrol et credit_card ve cart listeleri boş mu veriyor
   String? gender;
   String? firstName;
   String? lastName;
   String? hobbies;
   String? birthDate;
-  List<dynamic>? credit_card = List.empty();
+  List credit_card = [];
   int? wallet;
   String? emailAddress;
-  List<dynamic>? cart = List.empty();
+  List cart = [];
   String? educationStatus;
 
   Map<String, dynamic> toJson() {
@@ -42,10 +43,10 @@ class UserModel {
       'lastName': lastName,
       'hobbies': hobbies,
       'birthDate': birthDate,
-      'credit_card': null,
+      'credit_card': [],
       'wallet': wallet,
       'emailAddress': emailAddress,
-      'cart': null,
+      'cart': [],
       'educationStatus': educationStatus,
     };
   }

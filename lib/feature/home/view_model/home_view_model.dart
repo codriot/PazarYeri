@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:turkiye_yazilim_staj/core/gen/assets.gen.dart';
 import 'package:turkiye_yazilim_staj/feature/home/model/home_model.dart';
+import 'package:turkiye_yazilim_staj/feature/search/model/searched_product_model.dart';
 import 'package:turkiye_yazilim_staj/product/service/service_manager.dart';
 
 /// Home controller for the home page
@@ -10,7 +11,7 @@ class HomeController extends GetxController {
   RxList<String> sliderImagePaths = <String>[].obs;
   RxString? bigDiscountImage = ''.obs;
   RxList<InfluencerItem>? influencerItems = <InfluencerItem>[].obs;
-  RxList<ProductItem>? products = <ProductItem>[].obs;
+  RxList<SearchedProductItem>? products = <SearchedProductItem>[].obs;
 
   /// List of influencer items
   RxInt activePage = 0.obs;
@@ -34,8 +35,8 @@ class HomeController extends GetxController {
 
   RxBool isLoading = true.obs;
   final NetworkManager networkManager = NetworkManager();
-  // late final NetworkManager networkManager;
   final PageController pageController = PageController();
+  // late final NetworkManager networkManager; // Test için lazımdı
   // late List<Widget> pages;
   @override
   void onInit() {
@@ -113,7 +114,10 @@ class HomeController extends GetxController {
         final responseData = response.data!;
         final data = responseData['products'] as List<dynamic>;
         products?.value = data
-            .map((item) => ProductItem.fromJson(item as Map<String, dynamic>))
+            .map(
+              (item) =>
+                  SearchedProductItem.fromJson(item as Map<String, dynamic>),
+            )
             .toList();
         Logger().i('Products loaded successfully: $products');
       }

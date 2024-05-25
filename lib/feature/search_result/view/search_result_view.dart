@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/feature/search/model/searched_product_model.dart';
+import 'package:turkiye_yazilim_staj/product/navigator/navigator.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 import 'package:turkiye_yazilim_staj/product/widget/search_bar_general.dart';
 
@@ -10,9 +11,19 @@ class SearchResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get the productList argument passed from the previous page
-    final productList = (Get.arguments as List<dynamic>)
-        .map((e) => e as SearchedProductItem)
-        .toList();
+    final productList =
+        (Get.arguments as List<SearchedProductItem>).map((e) => e).toList();
+
+    if (productList.isEmpty) {
+      return const Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Text(
+            'Ürün bulunamadı.',
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -23,7 +34,7 @@ class SearchResultPage extends StatelessWidget {
             const GeneralSearchBar(
               hintText: 'Marka Ürün veya Kategori ara…',
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -75,7 +86,7 @@ class SearchResultPage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             // Display the search results
             GridView.builder(
               shrinkWrap: true,
@@ -86,14 +97,12 @@ class SearchResultPage extends StatelessWidget {
               ),
               itemCount: productList.length,
               itemBuilder: (context, index) {
-                final product = productList[index];
                 return ResultItem(
-                  imagePath: product.image ?? '',
-                  name: product.name ?? '',
-                  price: product.price.toString(),
+                  product: productList[index],
                 );
               },
             ),
+            const SizedBox(height: 10),
           ],
         ),
       ),
@@ -102,16 +111,16 @@ class SearchResultPage extends StatelessWidget {
 }
 
 class ResultItem extends StatelessWidget {
-  const ResultItem({super.key, this.imagePath, this.name, this.price});
-  final String? imagePath;
-  final String? name;
-  final String? price;
+  const ResultItem({required this.product, super.key});
+  final SearchedProductItem product;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         // Navigate to the product detail page
+        Get.toNamed(Navigate.productDetail.route, arguments: product);
+
         // Get.to(ProductDetailPage.new, arguments: product);
       },
       child: Card(
@@ -130,7 +139,7 @@ class ResultItem extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.network(
-                        imagePath ?? '',
+                        product.image ?? '',
                         fit: BoxFit.cover,
                         height: 200,
                       ),
@@ -151,8 +160,8 @@ class ResultItem extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    name ?? '',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    product.name ?? '',
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           color: Colors.black,
                         ),
                   ),
@@ -162,7 +171,7 @@ class ResultItem extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    '$price₺',
+                    '${product.price}₺',
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: ColorsProject.apricotSorbet,
                         ),

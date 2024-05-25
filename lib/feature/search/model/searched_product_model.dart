@@ -5,6 +5,8 @@ class SearchedProductItem {
     this.name,
     this.price,
     this.productId,
+    this.productCode,
+    this.dealer,
   });
 
   factory SearchedProductItem.fromJson(Map<String, dynamic> json) {
@@ -14,6 +16,8 @@ class SearchedProductItem {
       name: json['name'] as String?,
       price: json['price'] as double?,
       productId: json['product_id'] as int?,
+      productCode: json['code'] as String?,
+      dealer: json['dealer'] as String?,
     );
   }
   final String? description;
@@ -21,6 +25,8 @@ class SearchedProductItem {
   final String? name;
   final double? price;
   final int? productId;
+  final String? productCode;
+  final String? dealer;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -29,6 +35,8 @@ class SearchedProductItem {
     data['name'] = name;
     data['price'] = price;
     data['product_id'] = productId;
+    data['code'] = productCode;
+    data['dealer'] = dealer;
     return data;
   }
 }
