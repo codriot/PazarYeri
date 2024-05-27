@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:turkiye_yazilim_staj/feature/product/search/model/searched_product_model.dart';
+import 'package:turkiye_yazilim_staj/feature/product/search/view_model/search_view_model.dart';
 import 'package:turkiye_yazilim_staj/feature/product/search_result/view/search_result_view.dart';
 import 'package:turkiye_yazilim_staj/product/service/service_manager.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
@@ -17,7 +18,7 @@ class CustomSearchBar extends StatefulWidget {
 class _CustomSearchBarState extends State<CustomSearchBar> {
   final TextEditingController _controller = TextEditingController();
   late FocusNode _focusNode;
-
+  final searchController = Get.find<SearchViewModel>();
   final IconData _icon = Icons.arrow_back;
 
   @override
@@ -43,7 +44,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
     Logger().i(
       'Arama sorgusu gönderildi: ${ServicePath.product_search.path + text}',
     );
-
+    searchController.addSearch(text);
     try {
       final response = await NetworkManager()
           .getRequest(ServicePath.product_search.path + text);

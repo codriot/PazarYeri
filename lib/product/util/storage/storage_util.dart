@@ -4,20 +4,41 @@ import 'package:get_storage/get_storage.dart';
 /// StorageUtil mixin
 class StorageUtil {
   /// Storage instance
-  final box = GetStorage();
+  final _box = GetStorage();
   final String _Userkey = 'userId';
+  static const String _key = 'oldSearches';
 
-  /// Kullanıcı kimliğini döndürür
+  /// User id get
   int getUserId() {
-    return box.read(_Userkey) ?? 0;
+    return _box.read(_Userkey) ?? 0;
   }
 
-  /// Kullanıcı kimliğini ayarlar
+  /// set user id
   void setUserId(int userId) {
-    box.write(_Userkey, userId);
+    _box.write(_Userkey, userId);
   }
 
+  /// remove user id
   void removeUserId() {
-    box.remove(_Userkey);
+    _box.remove(_Userkey);
+  }
+
+  /// get old searches
+  List<String> getOldSearches() {
+    return _box.read<List<dynamic>>(_key)?.cast<String>() ?? [];
+  }
+
+  /// add new search
+  void addSearch(String arama) {
+    final eskiAramalar = getOldSearches();
+    eskiAramalar.add(arama);
+    _box.write(_key, eskiAramalar);
+  }
+
+  /// remove search
+  void removeSearch(String arama) {
+    final eskiAramalar = getOldSearches();
+    eskiAramalar.remove(arama);
+    _box.write(_key, eskiAramalar);
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/core/gen/assets.gen.dart';
 import 'package:turkiye_yazilim_staj/feature/product/search/view/search_bar.dart';
+import 'package:turkiye_yazilim_staj/feature/product/search/view_model/search_view_model.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -11,6 +12,8 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
+  final searchController = Get.put(SearchViewModel());
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -43,16 +46,37 @@ class _SearchViewState extends State<SearchView> {
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     color: Colors.white,
                   ),
-                  child: ListView.builder(
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: const Text('El kremi - Dynamic 100 ml Nivea'),
-                        subtitle: const Text('368,00₺'),
-                        trailing: Image.asset('assets/images/productPhoto.png'),
-                      );
-                    },
-                  ),
+                  child: Obx(() {
+                    return ListView.builder(
+                      itemCount: searchController.aramaGecmisi.length,
+                      itemBuilder: (context, index) {
+                        final arama = searchController.aramaGecmisi[index];
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    searchController.removeSearch(arama);
+                                  },
+                                  icon: const Icon(
+                                    Icons.clear,
+                                    size: 27,
+                                  ),
+                                ),
+                                SizedBox(width: Get.width * 0.04),
+                                Text(arama),
+                              ],
+                            ),
+                            const Divider(
+                              endIndent: 10,
+                              indent: 10,
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }),
                 ),
               ],
             ),
