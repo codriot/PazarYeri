@@ -4,6 +4,8 @@ import 'package:turkiye_yazilim_staj/feature/home/profile/profile/viewmodel/prof
 import 'package:turkiye_yazilim_staj/product/navigator/navigator.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 import 'package:turkiye_yazilim_staj/product/util/mixin/custom_gradient.dart';
+import 'package:turkiye_yazilim_staj/product/util/storage/storage_util.dart';
+import 'package:turkiye_yazilim_staj/product/widget/custom_appbar.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -12,40 +14,46 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     final profiles = ProfileViewModel().profiles;
 
-    return Container(
-      decoration: BoxDecoration(
-        gradient: CustomGradient.linearGradient(),
+    return Scaffold(
+      appBar: const CustomAppBar(
+        colorsAppBar: Colors.transparent,
+        isGradient: true,
       ),
-      child: Center(
-        child: Container(
-          height: Get.height * 0.8,
-          width: Get.width,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(23),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              children: [
-                _profileReview(context),
-                Expanded(
-                  child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: ProfileViewModel().profiles.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return _sectionButton(
-                        context,
-                        title: profiles[index].name,
-                        icon: profiles[index].icon,
-                        route: profiles[index].route,
-                        canBack:
-                            profiles[index].route != Navigate.welcome.route,
-                      );
-                    },
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: CustomGradient.linearGradient(),
+        ),
+        child: Center(
+          child: Container(
+            height: Get.height * 0.8,
+            width: Get.width,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(23),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Column(
+                children: [
+                  _profileReview(context),
+                  Expanded(
+                    child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: ProfileViewModel().profiles.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _sectionButton(
+                          context,
+                          title: profiles[index].name,
+                          icon: profiles[index].icon,
+                          route: profiles[index].route,
+                          canBack:
+                              profiles[index].route != Navigate.welcome.route,
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -75,16 +83,18 @@ class ProfileView extends StatelessWidget {
             icon,
             color: ColorsProject.apricotSorbet,
           ),
-          //todo: basınca yönlendirme yapılacak
           onTap: () => canBack
-              ? Get.toNamed(route!)
+              ? Navigator.pushNamed(context, route!)
               : Get.defaultDialog(
                   title: 'Onay',
                   middleText: 'Yönlendirme yapmak istediğinize emin misiniz?',
                   textConfirm: 'Evet',
                   textCancel: 'Hayır',
                   confirmTextColor: Colors.white,
-                  onConfirm: () => Get.offAndToNamed(route!),
+                  onConfirm: () {
+                    Get.offAndToNamed(route!);
+                    StorageUtil().removeUserId();
+                  },
                   onCancel: () {},
                 ),
         ),

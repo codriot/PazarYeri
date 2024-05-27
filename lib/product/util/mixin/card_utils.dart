@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:turkiye_yazilim_staj/core/enum/Card_enum.dart';
 
 mixin CardUtils {
   static CardType getCardTypeFrmNumber(String input) {
     CardType cardType;
-    if (input.startsWith(RegExp(
-        r'((5[1-5])|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720))'))) {
+    if (input.startsWith(
+      RegExp(
+        '((5[1-5])|(222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720))',
+      ),
+    )) {
       cardType = CardType.Master;
-    } else if (input.startsWith(RegExp(r'[4]'))) {
+    } else if (input.startsWith(RegExp('[4]'))) {
       cardType = CardType.Visa;
-    } else if (input.startsWith(RegExp(r'((506(0|1))|(507(8|9))|(6500))'))) {
+    } else if (input.startsWith(RegExp('((506(0|1))|(507(8|9))|(6500))'))) {
       cardType = CardType.Verve;
-    } else if (input.startsWith(RegExp(r'((34)|(37))'))) {
+    } else if (input.startsWith(RegExp('((34)|(37))'))) {
       cardType = CardType.AmericanExpress;
     } else if (input.length <= 8) {
       cardType = CardType.Others;
@@ -22,33 +24,28 @@ mixin CardUtils {
   }
 
   static Widget? getCardIcon(CardType? cardType) {
-    String img = "";
+    var img = '';
     Icon? icon;
     switch (cardType) {
       case CardType.Master:
         img = 'mastercard.png';
-        break;
       case CardType.Visa:
         img = 'Visa.png';
-        break;
       case CardType.Verve:
         img = 'Verve.png';
-        break;
       case CardType.AmericanExpress:
         img = 'AmericanExpress.png';
-        break;
 
       case CardType.Others:
         icon = const Icon(
           Icons.credit_card,
-          size: 24.0,
+          size: 24,
           color: Color(0xFFB8B5C3),
         );
-        break;
       default:
         icon = const Icon(
           Icons.warning,
-          size: 24.0,
+          size: 24,
           color: Color(0xFFB8B5C3),
         );
         break;
@@ -57,7 +54,7 @@ mixin CardUtils {
     if (img.isNotEmpty) {
       widget = Image.asset(
         'assets/images/$img',
-        width: 40.0,
+        width: 40,
       );
     } else {
       widget = icon;
@@ -66,7 +63,7 @@ mixin CardUtils {
   }
 
   static String getCleanedNumber(String text) {
-    RegExp regExp = RegExp(r"[^0-9]");
+    final regExp = RegExp('[^0-9]');
     return text.replaceAll(regExp, '');
   }
 
@@ -74,17 +71,17 @@ mixin CardUtils {
   /// https://en.wikipedia.org/wiki/Luhn_algorithm
   static String? validateCardNum(String? input) {
     if (input == null || input.isEmpty) {
-      return "This field is required";
+      return 'This field is required';
     }
     input = getCleanedNumber(input);
     if (input.length < 8) {
-      return "Card is invalid";
+      return 'Card is invalid';
     }
-    int sum = 0;
-    int length = input.length;
+    var sum = 0;
+    final length = input.length;
     for (var i = 0; i < length; i++) {
       // get digits in reverse order
-      int digit = int.parse(input[length - i - 1]);
+      var digit = int.parse(input[length - i - 1]);
 // every 2nd number multiply with 2
       if (i % 2 == 1) {
         digit *= 2;
@@ -94,46 +91,46 @@ mixin CardUtils {
     if (sum % 10 == 0) {
       return null;
     }
-    return "Card is invalid";
+    return 'Card is invalid';
   }
 
   static String? validateCVV(String? value) {
     if (value == null || value.isEmpty) {
-      return "This field is required";
+      return 'This field is required';
     }
     if (value.length < 3 || value.length > 4) {
-      return "CVV is invalid";
+      return 'CVV is invalid';
     }
     return null;
   }
 
   static String? validateDate(String? value) {
     if (value == null || value.isEmpty) {
-      return "This field is required";
+      return 'This field is required';
     }
     int year;
     int month;
-    if (value.contains(RegExp(r'(/)'))) {
-      var split = value.split(RegExp(r'(/)'));
+    if (value.contains(RegExp('(/)'))) {
+      final split = value.split(RegExp('(/)'));
 
       month = int.parse(split[0]);
       year = int.parse(split[1]);
     } else {
-      month = int.parse(value.substring(0, (value.length)));
+      month = int.parse(value.substring(0, value.length));
       year = -1; // Lets use an invalid year intentionally
     }
     if ((month < 1) || (month > 12)) {
       // A valid month is between 1 (January) and 12 (December)
       return 'Expiry month is invalid';
     }
-    var fourDigitsYear = convertYearTo4Digits(year);
+    final fourDigitsYear = convertYearTo4Digits(year);
     if ((fourDigitsYear < 1) || (fourDigitsYear > 2099)) {
       // We are assuming a valid should be between 1 and 2099.
       // Note that, it's valid doesn't mean that it has not expired.
       return 'Expiry year is invalid';
     }
     if (!hasDateExpired(month, year)) {
-      return "Card has expired";
+      return 'Card has expired';
     }
     return null;
   }
@@ -141,9 +138,9 @@ mixin CardUtils {
   /// Convert the two-digit year to four-digit year if necessary
   static int convertYearTo4Digits(int year) {
     if (year < 100 && year >= 0) {
-      var now = DateTime.now();
-      String currentYear = now.year.toString();
-      String prefix = currentYear.substring(0, currentYear.length - 2);
+      final now = DateTime.now();
+      final currentYear = now.year.toString();
+      final prefix = currentYear.substring(0, currentYear.length - 2);
       year = int.parse('$prefix${year.toString().padLeft(2, '0')}');
     }
     return year;
@@ -159,12 +156,12 @@ mixin CardUtils {
   }
 
   static List<int> getExpiryDate(String value) {
-    var split = value.split(RegExp(r'(/)'));
+    final split = value.split(RegExp('(/)'));
     return [int.parse(split[0]), int.parse(split[1])];
   }
 
   static bool hasMonthPassed(int year, int month) {
-    var now = DateTime.now();
+    final now = DateTime.now();
     // The month has passed if:
     // 1. The year is in the past. In that case, we just assume that the month
     // has passed
@@ -174,10 +171,22 @@ mixin CardUtils {
   }
 
   static bool hasYearPassed(int year) {
-    int fourDigitsYear = convertYearTo4Digits(year);
-    var now = DateTime.now();
+    final fourDigitsYear = convertYearTo4Digits(year);
+    final now = DateTime.now();
     // The year has passed if the year we are currently is more than card's
     // year
     return fourDigitsYear < now.year;
   }
+}
+
+enum CardType {
+  Master,
+  Visa,
+  Verve,
+  Discover,
+  AmericanExpress,
+  DinersClub,
+  Jcb,
+  Others,
+  Invalid
 }

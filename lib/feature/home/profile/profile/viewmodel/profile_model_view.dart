@@ -17,7 +17,7 @@ class ProfileViewModel {
     ProfileModel(
       name: 'Adreslerim',
       icon: Icons.location_on_outlined,
-      route: Navigate.adress.route,
+      route: Navigate.address.route,
     ),
     ProfileModel(
       name: 'Kartlarım',
@@ -27,12 +27,13 @@ class ProfileViewModel {
     ProfileModel(
       name: 'Hesap Ayarları',
       icon: Icons.settings_outlined,
-      route: 'Route2',
+      route: Navigate.setting.route,
     ),
     ProfileModel(
       name: 'Çıkış Yap',
       icon: Icons.login_rounded,
       route: Navigate.welcome.route,
+      canBack: false,
     ),
   ];
 }

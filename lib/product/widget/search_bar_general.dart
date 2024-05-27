@@ -29,9 +29,12 @@ class _GeneralSearchBarState extends State<GeneralSearchBar> {
   Widget build(BuildContext context) {
     return SearchBar(
       focusNode: _focusNode,
-      elevation: WidgetStateProperty.all<double?>(3),
+      side: WidgetStateProperty.all(
+        const BorderSide(color: ColorsProject.titanium),
+      ),
+      shadowColor: WidgetStateProperty.all<Color>(Colors.grey.shade100),
+      elevation: WidgetStateProperty.all<double?>(0),
       keyboardType: TextInputType.none,
-      onTapOutside: (event) {},
       constraints: const BoxConstraints(maxHeight: 50),
       hintText: widget.hintText,
       leading: IconButton(

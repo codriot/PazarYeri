@@ -5,7 +5,6 @@ class UserModel {
     this.firstName,
     this.lastName,
     this.hobbies,
-    //? doğum gününü DateTime türüne çevirmek için String türünde bir değişken tanımlamalı mıyım?
     this.birthDate,
     this.wallet = 0,
     this.emailAddress,
@@ -24,16 +23,15 @@ class UserModel {
       educationStatus: json['educationStatus'] as String,
     );
   }
-  //todo kontrol et credit_card ve cart listeleri boş mu veriyor
   String? gender;
   String? firstName;
   String? lastName;
   String? hobbies;
   String? birthDate;
-  List credit_card = [];
+  final credit_card = [];
   int? wallet;
   String? emailAddress;
-  List cart = [];
+  final cart = [];
   String? educationStatus;
 
   Map<String, dynamic> toJson() {

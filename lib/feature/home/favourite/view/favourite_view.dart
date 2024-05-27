@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/feature/home/favourite/view_model/favourite_model_view.dart';
+import 'package:turkiye_yazilim_staj/feature/product/product_detail/model/cart_model.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
+import 'package:turkiye_yazilim_staj/product/widget/custom_appbar.dart';
 import 'package:turkiye_yazilim_staj/product/widget/search_bar_general.dart';
 
 class FavoriteView extends StatelessWidget {
@@ -11,6 +13,7 @@ class FavoriteView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(FavouriteModelView());
     return Scaffold(
+      appBar: const CustomAppBar(colorsAppBar: Colors.white),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Column(
@@ -21,26 +24,39 @@ class FavoriteView extends StatelessWidget {
             const Spacer(),
             Expanded(
               flex: 25,
-              child: ListView.builder(
-                itemCount: controller.favorites?.length ?? 0,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      controller.goDetail(controller.favorites?[index]);
-                    },
-                    child: UrunKarti(
-                      urunAdi: controller.favorites?[index].name ?? '',
-                      fiyat: controller.favorites?[index].price ?? 0.0,
-                      marka: controller.favorites?[index].dealer ?? '',
-                      gorselUrl: controller.favorites?[index].image ?? '',
-                    ),
-                  );
-                },
-              ),
+              child: Obx(() {
+                if (controller.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (controller.favorites != null) {
+                  return _favoritesProductsList(controller);
+                } else {
+                  return const SizedBox();
+                }
+              }),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  ListView _favoritesProductsList(FavouriteModelView controller) {
+    return ListView.builder(
+      itemCount: controller.favorites?.length ?? 0,
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            controller.goDetail(controller.favorites?[index]);
+          },
+          child: UrunKarti(
+            urunAdi: controller.favorites?[index].name ?? '',
+            fiyat: controller.favorites?[index].price ?? 0.0,
+            marka: controller.favorites?[index].dealer ?? '',
+            gorselUrl: controller.favorites?[index].image ?? '',
+            productId: controller.favorites?[index].productId ?? 0,
+          ),
+        );
+      },
     );
   }
 }
@@ -51,8 +67,10 @@ class UrunKarti extends StatelessWidget {
     required this.marka,
     required this.fiyat,
     required this.gorselUrl,
+    required this.productId,
     super.key,
   });
+  final int productId;
 
   final String urunAdi;
   final String marka;
@@ -61,6 +79,7 @@ class UrunKarti extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<FavouriteModelView>();
     return Card(
       elevation: 3,
       color: Colors.grey.shade100,
@@ -157,7 +176,11 @@ class UrunKarti extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   elevation: 4,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  controller.addCard(
+                    CartModel(amount: 1, productId: productId),
+                  );
+                },
                 child: const Text(
                   'Sepete Ekle',
                   style: TextStyle(color: Colors.white),

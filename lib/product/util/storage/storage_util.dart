@@ -16,4 +16,8 @@ class StorageUtil {
   void setUserId(int userId) {
     box.write(_Userkey, userId);
   }
+
+  void removeUserId() {
+    box.remove(_Userkey);
+  }
 }

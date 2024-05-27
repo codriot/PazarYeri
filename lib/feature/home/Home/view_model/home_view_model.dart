@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:turkiye_yazilim_staj/core/gen/assets.gen.dart';
 import 'package:turkiye_yazilim_staj/feature/home/Home/model/home_model.dart';
-import 'package:turkiye_yazilim_staj/feature/products/search/model/searched_product_model.dart';
+import 'package:turkiye_yazilim_staj/feature/product/search/model/searched_product_model.dart';
 import 'package:turkiye_yazilim_staj/product/service/service_manager.dart';
 
 /// Home controller for the home page
@@ -11,7 +11,8 @@ class HomeController extends GetxController {
   RxList<String> sliderImagePaths = <String>[].obs;
   RxString? bigDiscountImage = ''.obs;
   RxList<InfluencerItem>? influencerItems = <InfluencerItem>[].obs;
-  RxList<SearchedProductItem>? products = <SearchedProductItem>[].obs;
+  RxList<ProductItem>? products = <ProductItem>[].obs;
+  RxBool isLoading = true.obs;
 
   /// List of influencer items
   RxInt activePage = 0.obs;
@@ -33,7 +34,6 @@ class HomeController extends GetxController {
     ];
   }
 
-  RxBool isLoading = true.obs;
   final NetworkManager networkManager = NetworkManager();
   final PageController pageController = PageController();
   // late final NetworkManager networkManager; // Test için lazımdı
@@ -49,6 +49,7 @@ class HomeController extends GetxController {
     await fetchDiscount();
     await fetchInfluencers();
     await fetchProducts();
+    isLoading.value = false;
   }
 
   /// Fetches influencers from the API
@@ -80,7 +81,6 @@ class HomeController extends GetxController {
   /// Fetches discount images from the API
   Future<void> fetchDiscount() async {
     try {
-      isLoading.value = true;
       final response =
           await networkManager.getRequest(ServicePath.discount.path);
       if (response.statusCode == 200) {
@@ -99,8 +99,6 @@ class HomeController extends GetxController {
       }
     } catch (e) {
       Logger().e('Failed to load slider images: $e');
-    } finally {
-      isLoading.value = false;
     }
   }
 
@@ -115,8 +113,7 @@ class HomeController extends GetxController {
         final data = responseData['products'] as List<dynamic>;
         products?.value = data
             .map(
-              (item) =>
-                  SearchedProductItem.fromJson(item as Map<String, dynamic>),
+              (item) => ProductItem.fromJson(item as Map<String, dynamic>),
             )
             .toList();
         Logger().i('Products loaded successfully: $products');

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:turkiye_yazilim_staj/feature/products/product_detail/model/comment_model.dart';
+import 'package:turkiye_yazilim_staj/feature/product/product_detail/model/comment_model.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 
 class CommentSection extends StatelessWidget {
@@ -17,7 +17,7 @@ class CommentSection extends StatelessWidget {
               child: Row(
                 children: [
                   Stars(
-                    rating: comment.rating!,
+                    rating: comment.star!.toDouble(),
                   ),
                   const CustomVerticalDivider(),
                   Text(

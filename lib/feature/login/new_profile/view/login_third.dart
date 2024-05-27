@@ -19,7 +19,9 @@ class _RegistrationFormState extends State<RegistrationForm>
     final controller = Get.put(RegistrationController());
 
     return Scaffold(
-      appBar: const CustomAppBar(isWhite: true),
+      appBar: const CustomAppBar(
+        colorsAppBar: Colors.white,
+      ),
       body: Form(
         key: controller.formKey,
         child: SingleChildScrollView(
@@ -57,33 +59,36 @@ class _RegistrationFormState extends State<RegistrationForm>
                 menuItem: controller.hobbies,
                 onSave: (value) => controller.model.hobbies = value,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  controller.saveData();
-
-                  if (controller.formKey.currentState!.validate()) {
-                    controller.formKey.currentState!.save();
-
-                    // Add your logic to save data here (e.g., call an API, store in database)
-                    print('Saved data:');
-                    print('  First name: ${controller.model.firstName}');
-                    print('  Last name: ${controller.model.lastName}');
-                    print('  Date: ');
-                    print('  Gender: ${controller.model.gender}');
-                    print('  Email: ${controller.model.emailAddress}');
-                    print(
-                      '  Education level: ${controller.model.educationStatus}',
-                    );
-                    print('  Hobby: ${controller.model.hobbies}');
-
-                    // You can also navigate to another page after saving
-                    // Get.to(NextPage());
-                  }
-                },
-                child: const Text('Gönder'),
-              ),
+              SizedBox(height: context.height * 0.06),
+              _nextButton(controller, context),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  ElevatedButton _nextButton(
+    RegistrationController controller,
+    BuildContext context,
+  ) {
+    return ElevatedButton(
+      onPressed: () {
+        controller.saveData();
+        if (controller.formKey.currentState!.validate()) {
+          controller.formKey.currentState!.save();
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: context.width * 0.3,
+          vertical: 8,
+        ),
+        child: Text(
+          'Gönder',
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Colors.white,
+              ),
         ),
       ),
     );

@@ -21,7 +21,7 @@ final class InitProject {
     FlutterError.onError = (FlutterErrorDetails details) {
       FlutterError.dumpErrorToConsole(details);
 
-      /// todo: add custom logger
+      /// : add custom logger
       Logger().e(details.exception.toString());
     };
     // Environment setup

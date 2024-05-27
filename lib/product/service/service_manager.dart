@@ -5,7 +5,7 @@ import 'package:turkiye_yazilim_staj/product/init/config/app_environment.dart';
 import 'package:turkiye_yazilim_staj/product/util/storage/storage_util.dart';
 
 /// This class is responsible for network operations
-class NetworkManager {
+class NetworkManager extends DioMixin {
   // Factory constructor to return the same instance
   factory NetworkManager() {
     return _instance;
@@ -76,42 +76,46 @@ enum ServicePath {
   User,
   product,
   product_search,
-  postCart,
-  getCart,
+
+  Cart,
   credit_card,
   discount,
   influencer,
-  favourite,
+  favorite,
   wallet,
-  adress;
+  address,
+  pastOrders,
+  purchase,
+  comments;
 
   String get path {
     switch (this) {
       case ServicePath.User:
-        //  şeklinde kullanıcı id'si ile cart bilgilerine ulaşılabilir
         return '/users';
       case ServicePath.product:
         return '/products';
       case ServicePath.product_search:
         return '/search_products?term=';
-      case ServicePath.postCart:
-        return '/cart';
-      //{     "user_id": 1,     "product_id": 1,     "amount": 2 } bu şekilde post edilecek
       case ServicePath.credit_card:
-        return '/credit_card';
-      //{     "user_id": 1,     "card_number": "1234-5678-9012-3456",     "expiry_date": "12/25",     "card_holder_name": "Ali Veli",     "cvv": "123" } bu şekilde post edilecek
+        return '/credit_card/${StorageUtil().getUserId()}';
       case ServicePath.discount:
         return '/discount';
       case ServicePath.influencer:
         return '/influencers';
-      case ServicePath.favourite:
+      case ServicePath.favorite:
         return '/favorites/${StorageUtil().getUserId()}';
       case ServicePath.wallet:
-        return '/wallet';
-      case ServicePath.adress:
-        return '/adress';
-      case ServicePath.getCart:
+        return '/wallet/${StorageUtil().getUserId()}';
+      case ServicePath.address:
+        return '/address/${StorageUtil().getUserId()}';
+      case ServicePath.Cart:
         return '/cart/${StorageUtil().getUserId()}';
+      case ServicePath.pastOrders:
+        return '/past_orders/${StorageUtil().getUserId()}';
+      case ServicePath.comments:
+        return '/comments';
+      case ServicePath.purchase:
+        return '/purchase/${StorageUtil().getUserId()}';
     }
   }
 }

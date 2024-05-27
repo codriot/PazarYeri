@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/feature/home/Home/view/home.dart';
 import 'package:turkiye_yazilim_staj/feature/home/Home/view_model/home_view_model.dart';
+import 'package:turkiye_yazilim_staj/product/navigator/navigator.dart';
 import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 
 mixin HomeUtil on State<HomeView> {
@@ -13,6 +14,24 @@ mixin HomeUtil on State<HomeView> {
     ),
   );
 
+  GridView gridViewProductError() {
+    return GridView.count(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: 2,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      children: List.generate(4, (index) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(16),
+          ),
+        );
+      }),
+    );
+  }
+
   GridView gridViewProduct() {
     return GridView.count(
       shrinkWrap: true,
@@ -20,13 +39,11 @@ mixin HomeUtil on State<HomeView> {
       crossAxisCount: 2,
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
-      children: List.generate(controller.products?.length ?? 0, (index) {
+      children: List.generate(4, (index) {
         return GestureDetector(
           onTap: () {
-            //controller.products[index].id, argüment vererek detay sayfasına yönlendirme yap
-            //Todo : Tıklama işlemi buraya eklenebilir
             Get.toNamed(
-              '/productDetail',
+              Navigate.productDetail.route,
               arguments: controller.products?[index],
             );
           },
@@ -78,15 +95,26 @@ mixin HomeUtil on State<HomeView> {
                     color: Colors.white,
                   ),
             ),
-            if (controller.bigDiscountImage?.value == null)
-              const CircularProgressIndicator()
-            else
-              Image.network(
+            Obx(() {
+              if (controller.isLoading.value) {
+                return Container(
+                  height: Get.height * 0.17,
+                  width: Get.width * 0.85,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                );
+              }
+              return Image.network(
                 controller.bigDiscountImage!.value,
                 errorBuilder: (context, error, stackTrace) {
-                  return const Text('Yakında...');
+                  return Container(
+                    color: Colors.grey.shade200,
+                  );
                 },
-              ),
+              );
+            }),
           ],
         ),
       ),
@@ -103,52 +131,55 @@ mixin HomeUtil on State<HomeView> {
             style: TextStyle(fontSize: 18, color: Colors.black),
           ),
         ),
-        Obx(
-          () => SizedBox(
-            height: Get.height * 0.15,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: controller.influencerItems?.length ?? 6,
-              itemBuilder: (context, index) {
-                final influencer = controller.influencerItems?[index];
-                return Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          influencer?.image ??
-                              'https://picsum.photos/200/300', // Influencer resmini kullan
-                          fit: BoxFit.cover,
+        Obx(() {
+          return GestureDetector(
+            onTap: () {
+              Get.toNamed(Navigate.influencer.route);
+            },
+            child: SizedBox(
+              height: Get.height * 0.15,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: controller.influencerItems?.length ?? 6,
+                itemBuilder: (context, index) {
+                  final influencer = controller.influencerItems?[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            influencer?.image ?? '',
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      const Positioned(
-                        top: 0,
-                        right: 0,
-                        child: Icon(
-                          Icons.check_circle,
-                          color: Colors.blue,
+                        const Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Icon(
+                            Icons.check_circle,
+                            color: Colors.blue,
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: Text(
-                          influencer?.name ??
-                              'influencer', // Influencer ismini kullan
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 11),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Text(
+                            influencer?.name ?? '',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 11),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-        ),
+          );
+        }),
       ],
     );
   }
@@ -191,34 +222,6 @@ mixin HomeUtil on State<HomeView> {
     );
   }
 
-//TODO: GRİD VIEW OLACAK şekilde düzenleme yapılabilir
-  Padding buildRow2() {
-    final items = controller
-        .createItems(); // createItems fonksiyonunu çağır ve sonucu items değişkenine ata
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: SizedBox(
-        height: Get.height * 0.2,
-        child: GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // Yatay eleman sayısı
-            crossAxisSpacing: 10, // Yatay boşluk
-            mainAxisSpacing: 10, // Dikey boşluk
-          ),
-          itemCount: 4, // Toplam eleman sayısı
-          itemBuilder: (BuildContext context, int index) {
-            return _elevatedButtonIcon(
-              imagePath: items[index].imagePath,
-              text: items[index].text,
-            );
-          },
-        ),
-      ),
-    );
-  }
-
   ElevatedButton _elevatedButtonIcon({
     required String text,
     required String imagePath,
@@ -247,7 +250,6 @@ mixin HomeUtil on State<HomeView> {
     );
   }
 
-  //? carousel_slider kullanımı daha iyi mi olurdu?
   Stack PhotoSlider() {
     return Stack(
       children: [
@@ -259,8 +261,8 @@ mixin HomeUtil on State<HomeView> {
               borderRadius: BorderRadius.circular(21),
               child: Obx(() {
                 if (controller.isLoading.value) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Container(
+                    color: Colors.grey.shade200,
                   );
                 }
                 return PageView.builder(

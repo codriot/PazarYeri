@@ -18,15 +18,14 @@ class RegistrationController extends GetxController {
 
   final _formKey = GlobalKey<FormState>();
 
-  ///? bu öğeler API'den mi çekilmeli yoksa statik mi olmalı?
-  final List<String> genders = ['Male', 'Female', 'Other'];
+  final List<String> genders = ['Erkek', 'Kadın', 'Diğer'];
   final List<String> educationLevels = [
-    'High School',
-    'Undergraduate',
-    'Graduate',
-    'PhD',
+    'Lise',
+    'Universite',
+    'Yuksek Lisans',
+    'Doktora',
   ];
-  final List<String> hobbies = ['Reading', 'Swimming', 'Running', 'Cycling'];
+  final List<String> hobbies = ['Okuma', 'Yüzme', 'Koşu yapma', 'Seyahat etme'];
 
   /// Kullanıcı modeli
   UserModel model = UserModel();
@@ -39,7 +38,6 @@ class RegistrationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Tarih Controller'larının listener'larını ekleyin
     dayController.addListener(updateFormattedDate);
     monthController.addListener(updateFormattedDate);
     yearController.addListener(updateFormattedDate);
@@ -47,7 +45,7 @@ class RegistrationController extends GetxController {
 
   @override
   void onClose() {
-    // Controller'ları temizleyin
+    // dispose Controllers
     firstnameController.dispose();
     lastNameController.dispose();
     emailController.dispose();
@@ -57,13 +55,13 @@ class RegistrationController extends GetxController {
     super.onClose();
   }
 
-  /// Girdileri birleştiren fonksiyon
+  ///  Date Listeners
   void updateFormattedDate() {
     formattedDate.value =
         '${dayController.text}.${monthController.text}.${yearController.text}';
   }
 
-  /// Tarihi formatlayan fonksiyon
+  /// Date Formatter
   String formatDate(String date) {
     // Tarihi 'yyyy-MM-dd' formatından 'dd.MM.yyyy' formatına dönüştürme
     final parts = date.split('.');
@@ -78,7 +76,7 @@ class RegistrationController extends GetxController {
     throw const FormatException('Invalid date format');
   }
 
-  /// Tarih doğrulama fonksiyonu
+  /// date validation method
   String? validateDate() {
     final day = int.tryParse(dayController.text);
     final month = int.tryParse(monthController.text);
@@ -100,6 +98,7 @@ class RegistrationController extends GetxController {
     return null;
   }
 
+  /// save data method
   Future<void> saveData() async {
     if (_formKey.currentState?.validate() ?? false) {
       model

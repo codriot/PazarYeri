@@ -4,12 +4,12 @@ import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
 
 mixin AppTheme {
   static ThemeData productTheme(BuildContext context) {
-    //Todo: şunu da bir dene return ThemeData.light().copyWith
     return ThemeData(
       appBarTheme: AppBarTheme(
         titleTextStyle: Theme.of(context).textTheme.displayMedium!.copyWith(
               color: ColorsProject.apricotSorbet,
             ),
+        iconTheme: const IconThemeData(color: ColorsProject.apricotSorbet),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -27,7 +27,7 @@ mixin AppTheme {
         ),
       ),
       textTheme: _appTextTheme(context),
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
       useMaterial3: true,
     );
   }
