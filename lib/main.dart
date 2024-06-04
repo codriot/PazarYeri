@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/product/Theme/Theme.dart';
-import 'package:turkiye_yazilim_staj/product/init/init_project.dart';
+import 'package:turkiye_yazilim_staj/product/init/application_initialize.dart';
 import 'package:turkiye_yazilim_staj/product/navigator/navigator.dart';
 
 Future<void> main() async {

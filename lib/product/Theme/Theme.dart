@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
+import 'package:turkiye_yazilim_staj/product/utility/project_util/const/colors.dart';
 
 mixin AppTheme {
   static ThemeData productTheme(BuildContext context) {

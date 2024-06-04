@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:turkiye_yazilim_staj/feature/product/product_detail/model/comment_model.dart';
-import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
+import 'package:get/get.dart';
+import 'package:turkiye_yazilim_staj/feature/product/product_comment/model/comment_model.dart';
+import 'package:turkiye_yazilim_staj/feature/product/product_detail/controller/product_detail_controller.dart';
+import 'package:turkiye_yazilim_staj/product/utility/project_util/const/colors.dart';
 
 class CommentSection extends StatelessWidget {
   const CommentSection({required this.comment, super.key});
@@ -122,6 +124,40 @@ class StarPoint extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class StarAndComment extends StatelessWidget {
+  const StarAndComment({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.find<ProductController>();
+    return IntrinsicHeight(
+      child: Row(
+        children: [
+          // Yıldızlar
+
+          const StarPoint(
+            text: '4.3',
+          ),
+
+          const Stars(rating: 4.3),
+          // Değerlendirme sayısı
+          // ! divider  görünmüyor
+          const CustomVerticalDivider(),
+
+          Obx(
+            () => Text(
+              '${controller.comments!.length} Değerlendirme',
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    color: ColorsProject.grey,
+                  ),
+            ),
+          ),
+        ],
       ),
     );
   }

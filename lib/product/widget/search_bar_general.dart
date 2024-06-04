@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/product/navigator/navigator.dart';
-import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
+import 'package:turkiye_yazilim_staj/product/utility/project_util/const/colors.dart';
 
 // Notlar: Arkaplan rengi düzenlenecek, controller eklenecek ve onChanged düzenlenecek, onSubmit callback verilecek
 class GeneralSearchBar extends StatefulWidget {

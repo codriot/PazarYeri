@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:turkiye_yazilim_staj/feature/login/authentication/viewmodel/auth_view_model.dart';
+import 'package:turkiye_yazilim_staj/feature/login/authentication/controller/authentication_controller.dart';
 import 'package:turkiye_yazilim_staj/product/navigator/navigator.dart';
-import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
-import 'package:turkiye_yazilim_staj/product/widget/custom_appbar.dart';
+import 'package:turkiye_yazilim_staj/product/utility/project_util/const/colors.dart';
+import 'package:turkiye_yazilim_staj/product/utility/project_util/image/assets.gen.dart';
+import 'package:turkiye_yazilim_staj/product/widget/custom_app_bar.dart';
 
-part 'auth_part.dart';
+part 'parts/auth_part.dart';
+part 'parts/pin_code_widget.dart';
 
 class VerifyPage extends StatefulWidget {
   const VerifyPage({super.key});
@@ -19,7 +21,39 @@ class _VerifyPageState extends State<VerifyPage> with TickerProviderStateMixin {
   final int _counter = 0;
   late AnimationController _controller;
   int levelClock = 180;
-  final PasswordViewModel controller = Get.put(PasswordViewModel());
+  final PasswordController controller = Get.put(PasswordController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(Assets.images.backgroundImage.path),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: ListView(
+            children: [
+              const CustomAppBarBuilder(
+                hasNotificationButton: false,
+              ),
+              _verificationText(),
+              const PinCode(),
+              _countDownText(),
+              _newVerificationCodeButton(),
+              NextButton(
+                page: Navigate.signup.route,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   void dispose() {
@@ -48,32 +82,6 @@ class _VerifyPageState extends State<VerifyPage> with TickerProviderStateMixin {
         duration: const Duration(seconds: 5),
       );
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(
-        colorsAppBar: Colors.white,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: ListView(
-          children: [
-            _verificationText(),
-            const PinCode(),
-            _countDownText(),
-            _newVerificationCodeButton(),
-            Obx(
-              () => NextButton(
-                canGo: controller.isVerified.value,
-                page: Navigate.signup.route,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   TextButton _newVerificationCodeButton() {
@@ -109,10 +117,15 @@ class _VerifyPageState extends State<VerifyPage> with TickerProviderStateMixin {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('Yeni doğrulama kodu almak icin :  '),
+        Text(
+          'Yeni doğrulama kodu almak icin :  ',
+          style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                color: ColorsProject.grey,
+              ),
+        ),
         Countdown(
           animation: StepTween(
-            begin: levelClock, // BU KULLANICININ GİRDİĞİ BİR NUMARADIR
+            begin: levelClock, // BU 3 DAKİKALIK SAYACIN BAŞLANGICIDIR
             end: 0,
           ).animate(_controller),
         ),

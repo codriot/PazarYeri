@@ -2,7 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:turkiye_yazilim_staj/product/init/config/app_environment.dart';
-import 'package:turkiye_yazilim_staj/product/util/storage/storage_util.dart';
+import 'package:turkiye_yazilim_staj/product/utility/project_util/storage/storage_util.dart';
 
 /// This class is responsible for network operations
 class NetworkManager extends DioMixin {
@@ -17,6 +17,7 @@ class NetworkManager extends DioMixin {
       BaseOptions(
         baseUrl: _baseUrl,
         headers: {
+          // 'API_KEY': _apiKey,
           'API_KEY': _apiKey,
           'Content-Type': 'application/json',
         },

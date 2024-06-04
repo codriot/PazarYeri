@@ -1,26 +1,25 @@
-// ignore_for_file: public_member_api_docs
-
 import 'package:get/get.dart';
-import 'package:turkiye_yazilim_staj/feature/home/Home/view/home.dart';
-import 'package:turkiye_yazilim_staj/feature/home/Notification/view/notification_view.dart';
-import 'package:turkiye_yazilim_staj/feature/home/cart/cart/view/cart_view.dart';
-import 'package:turkiye_yazilim_staj/feature/home/cart/payment/view/payment_view.dart';
-import 'package:turkiye_yazilim_staj/feature/home/favourite/view/favourite_view.dart';
-import 'package:turkiye_yazilim_staj/feature/home/influencer/view/Influencer.dart';
-import 'package:turkiye_yazilim_staj/feature/home/navigation_bar/view/navigation_bar.dart';
-import 'package:turkiye_yazilim_staj/feature/home/profile/address/view/adress_view.dart';
-import 'package:turkiye_yazilim_staj/feature/home/profile/cards/view/cards_view.dart';
-import 'package:turkiye_yazilim_staj/feature/home/profile/past_orders/view/past_orders_view.dart';
-import 'package:turkiye_yazilim_staj/feature/home/profile/profile/view/profile_view.dart';
-import 'package:turkiye_yazilim_staj/feature/home/profile/settings/Settings.dart';
-import 'package:turkiye_yazilim_staj/feature/home/profile/wallet/view/wallet_view.dart';
+import 'package:turkiye_yazilim_staj/feature/Home/view/home.dart';
+import 'package:turkiye_yazilim_staj/feature/Notification/view/notification_view.dart';
+import 'package:turkiye_yazilim_staj/feature/cart/cart/view/cart_view.dart';
+import 'package:turkiye_yazilim_staj/feature/cart/payment/view/payment_view.dart';
+import 'package:turkiye_yazilim_staj/feature/favourite/view/favourite_view.dart';
+import 'package:turkiye_yazilim_staj/feature/influencer/view/Influencer.dart';
 import 'package:turkiye_yazilim_staj/feature/login/authentication/view/auth_view.dart';
-import 'package:turkiye_yazilim_staj/feature/login/new_profile/view/login_third.dart';
+import 'package:turkiye_yazilim_staj/feature/login/new_profile/view/new_profile_view.dart';
 import 'package:turkiye_yazilim_staj/feature/login/welcome/view/welcome_view.dart';
-import 'package:turkiye_yazilim_staj/feature/product/product_detail/view/all_comment.dart';
+import 'package:turkiye_yazilim_staj/feature/navigation_bar/view/navigation_bar.dart';
+import 'package:turkiye_yazilim_staj/feature/product/product_comment/view/product_comment_view.dart';
 import 'package:turkiye_yazilim_staj/feature/product/product_detail/view/product_detail.dart';
-import 'package:turkiye_yazilim_staj/feature/product/search/view/search_view.dart';
-import 'package:turkiye_yazilim_staj/product/util/storage/storage_util.dart';
+import 'package:turkiye_yazilim_staj/feature/product/product_search/view/search_view.dart';
+import 'package:turkiye_yazilim_staj/feature/product/product_search_result/view/search_result_view.dart';
+import 'package:turkiye_yazilim_staj/feature/profile/address/view/adress_view.dart';
+import 'package:turkiye_yazilim_staj/feature/profile/cards/view/cards_view.dart';
+import 'package:turkiye_yazilim_staj/feature/profile/past_orders/view/past_orders_view.dart';
+import 'package:turkiye_yazilim_staj/feature/profile/profile/view/profile_view.dart';
+import 'package:turkiye_yazilim_staj/feature/profile/settings/view/Settings.dart';
+import 'package:turkiye_yazilim_staj/feature/profile/wallet/view/wallet_view.dart';
+import 'package:turkiye_yazilim_staj/product/utility/project_util/storage/storage_util.dart';
 
 mixin NavigateMixin {
   static const String init = '/';
@@ -32,7 +31,7 @@ mixin NavigateMixin {
       name: NavigateMixin.init,
       page: () => StorageUtil().getUserId() == 0
           ? const FirstLoginView()
-          : const NavbarView(),
+          : const NavigationBarView(),
     ),
     GetPage(name: Navigate.home.route, page: () => const HomeView()),
     GetPage(name: Navigate.favorite.route, page: () => const FavoriteView()),
@@ -47,7 +46,7 @@ mixin NavigateMixin {
       name: Navigate.productDetail.route,
       page: () => const ProductDetailView(),
     ),
-    GetPage(name: Navigate.main.route, page: () => const NavbarView()),
+    GetPage(name: Navigate.main.route, page: () => const NavigationBarView()),
     GetPage(name: Navigate.welcome.route, page: () => const FirstLoginView()),
     GetPage(name: Navigate.signup.route, page: () => const RegistrationForm()),
     GetPage(name: Navigate.auth.route, page: () => const VerifyPage()),
@@ -55,12 +54,12 @@ mixin NavigateMixin {
       name: Navigate.pastOrders.route,
       page: () => const PastOrdersView(),
     ),
-    GetPage(name: Navigate.address.route, page: () => const AdressView()),
+    GetPage(name: Navigate.address.route, page: () => const AddressView()),
     GetPage(name: Navigate.card.route, page: () => const CardsView()),
     GetPage(name: Navigate.search.route, page: () => const SearchView()),
     GetPage(name: Navigate.setting.route, page: () => const SettingsView()),
     GetPage(
-      name: Navigate.allcomment.route,
+      name: Navigate.allComment.route,
       page: () => const AllCommentView(),
     ),
     GetPage(
@@ -70,6 +69,10 @@ mixin NavigateMixin {
     GetPage(
       name: Navigate.notification.route,
       page: () => const NotificationView(),
+    ),
+    GetPage(
+      name: Navigate.searchResult.route,
+      page: SearchResultView.new,
     ),
   ];
 }
@@ -91,52 +94,12 @@ enum Navigate {
   notification,
   search,
   setting,
-  allcomment,
+  allComment,
   payment,
+  searchResult,
   influencer
 }
 
 extension NavigateExtension on Navigate {
-  String get route {
-    switch (this) {
-      case Navigate.cart:
-        return '/CartView';
-      case Navigate.favorite:
-        return '/FavouriteView';
-      case Navigate.home:
-        return '/HomeView';
-      case Navigate.welcome:
-        return '/FirstLoginView';
-      case Navigate.signup:
-        return '/RegistrationForm';
-      case Navigate.auth:
-        return '/VerifyPage';
-      case Navigate.main:
-        return '/main';
-      case Navigate.productDetail:
-        return '/productDetail';
-      case Navigate.profile:
-        return '/profile';
-      case Navigate.address:
-        return '/address';
-      case Navigate.card:
-        return '/card';
-      case Navigate.pastOrders:
-        return '/pastOrders';
-      case Navigate.wallet:
-        return '/wallet';
-      case Navigate.search:
-        return '/search';
-      case Navigate.setting:
-        return '/setting';
-      case Navigate.allcomment:
-        return '/allcomment';
-      case Navigate.payment:
-        return '/payment';
-      case Navigate.influencer:
-        return '/influencer';
-      case Navigate.notification:
-        return '/notification';
-    }
-  }
+  String get route => '/$name';
 }

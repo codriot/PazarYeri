@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:turkiye_yazilim_staj/core/gen/assets.gen.dart';
-import 'package:turkiye_yazilim_staj/feature/product/product_detail/model/cart_model.dart';
-import 'package:turkiye_yazilim_staj/feature/product/product_detail/viewmodel/Product_detail_view_model.dart';
+import 'package:turkiye_yazilim_staj/feature/cart/cart/controller/cart_controller.dart';
+import 'package:turkiye_yazilim_staj/feature/favourite/controller/favourite_controller.dart';
+import 'package:turkiye_yazilim_staj/feature/navigation_bar/controller/navigation_bar_controller.dart';
+import 'package:turkiye_yazilim_staj/feature/product/product_detail/controller/product_detail_controller.dart';
+import 'package:turkiye_yazilim_staj/feature/product/product_detail/model/add_cart_model.dart';
+import 'package:turkiye_yazilim_staj/product/model/product_model.dart';
 import 'package:turkiye_yazilim_staj/product/navigator/navigator.dart';
-import 'package:turkiye_yazilim_staj/product/util/const/colors.dart';
+import 'package:turkiye_yazilim_staj/product/utility/project_util/const/colors.dart';
+import 'package:turkiye_yazilim_staj/product/utility/project_util/image/assets.gen.dart';
 import 'package:turkiye_yazilim_staj/product/widget/comment_ui.dart';
 
-part 'product_detail_widgets.dart';
+part 'part/product_detail_widgets.dart';
 
 class ProductDetailView extends StatefulWidget {
   const ProductDetailView({super.key});
@@ -24,8 +28,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
       body: ListView(
         children: [
           SizedBox(
-            height: context.height * 1.63,
-            width: context.width,
+            height: Get.height * 1.63,
+            width: Get.width,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -46,7 +50,8 @@ class _ProductDetailViewState extends State<ProductDetailView>
                   top: 670,
                   left: 0,
                   right: 0,
-                  child: _cardAndComment(context, hata),
+                  child:
+                      _cardAndComment(context, hata, controller.product.value!),
                 ),
               ],
             ),
