@@ -134,7 +134,7 @@ class UrunKarti extends StatelessWidget {
                             color: ColorsProject.apricotSorbet,
                           ),
                     ),
-                    const SizedBox(height: 36),
+                    const SizedBox(height: 16),
                     Row(
                       children: [
                         Card(

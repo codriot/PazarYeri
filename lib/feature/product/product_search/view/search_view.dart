@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/feature/product/product_search/controller/search_controller.dart';
-import 'package:turkiye_yazilim_staj/feature/product/product_search_result/view/search_result_view.dart';
 import 'package:turkiye_yazilim_staj/product/navigator/navigator.dart';
 import 'package:turkiye_yazilim_staj/product/utility/project_util/const/colors.dart';
 import 'package:turkiye_yazilim_staj/product/utility/project_util/image/assets.gen.dart';

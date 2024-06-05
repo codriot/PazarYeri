@@ -14,7 +14,8 @@ class ProfileNavigatorWidget extends StatefulWidget {
   ProfileNavigatorWidgetState createState() => ProfileNavigatorWidgetState();
 }
 
-GlobalKey<NavigatorState> wishListNavigatorKey = GlobalKey<NavigatorState>();
+// GlobalKey<NavigatorState> wishListNavigatorKey = GlobalKey<NavigatorState>();
+final Key wishListNavigatorKey = UniqueKey();
 
 class ProfileNavigatorWidgetState extends State<ProfileNavigatorWidget> {
   @override

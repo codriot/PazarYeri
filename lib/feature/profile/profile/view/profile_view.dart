@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:turkiye_yazilim_staj/feature/navigation_bar/controller/navigation_bar_controller.dart';
 import 'package:turkiye_yazilim_staj/feature/profile/profile/controller/profile_controller.dart';
 import 'package:turkiye_yazilim_staj/product/navigator/navigator.dart';
 import 'package:turkiye_yazilim_staj/product/utility/project_util/const/colors.dart';
@@ -70,6 +71,7 @@ class ProfileView extends StatelessWidget {
     required String? route,
     required bool canBack,
   }) {
+    final navBarController = Get.find<NavBarController>();
     return Column(
       children: [
         const Divider(),
@@ -96,6 +98,7 @@ class ProfileView extends StatelessWidget {
                   textCancel: 'Hayır',
                   confirmTextColor: Colors.white,
                   onConfirm: () {
+                    navBarController.changeTabIndex(0);
                     Get.offAndToNamed(route!);
                     StorageUtil().removeUserId();
                   },

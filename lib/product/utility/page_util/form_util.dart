@@ -135,6 +135,7 @@ mixin RegistrationUtil on State<RegistrationForm> {
     required String title,
     required TextEditingController controller,
     required String? Function(String?) validator,
+    TextInputAction textInputAction = TextInputAction.next,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,7 +147,7 @@ mixin RegistrationUtil on State<RegistrationForm> {
         TextFormField(
           // controller: ,
           decoration: _myInputDecoration(),
-          textInputAction: TextInputAction.next,
+          textInputAction: textInputAction,
           controller: controller,
           validator: validator,
         ),

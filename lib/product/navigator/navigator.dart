@@ -1,13 +1,17 @@
 import 'package:get/get.dart';
+import 'package:turkiye_yazilim_staj/feature/Home/controller/home_controller.dart';
 import 'package:turkiye_yazilim_staj/feature/Home/view/home.dart';
 import 'package:turkiye_yazilim_staj/feature/Notification/view/notification_view.dart';
+import 'package:turkiye_yazilim_staj/feature/cart/cart/controller/cart_controller.dart';
 import 'package:turkiye_yazilim_staj/feature/cart/cart/view/cart_view.dart';
 import 'package:turkiye_yazilim_staj/feature/cart/payment/view/payment_view.dart';
+import 'package:turkiye_yazilim_staj/feature/favourite/controller/favourite_controller.dart';
 import 'package:turkiye_yazilim_staj/feature/favourite/view/favourite_view.dart';
 import 'package:turkiye_yazilim_staj/feature/influencer/view/Influencer.dart';
 import 'package:turkiye_yazilim_staj/feature/login/authentication/view/auth_view.dart';
 import 'package:turkiye_yazilim_staj/feature/login/new_profile/view/new_profile_view.dart';
 import 'package:turkiye_yazilim_staj/feature/login/welcome/view/welcome_view.dart';
+import 'package:turkiye_yazilim_staj/feature/navigation_bar/controller/navigation_bar_controller.dart';
 import 'package:turkiye_yazilim_staj/feature/navigation_bar/view/navigation_bar.dart';
 import 'package:turkiye_yazilim_staj/feature/product/product_comment/view/product_comment_view.dart';
 import 'package:turkiye_yazilim_staj/feature/product/product_detail/view/product_detail.dart';
@@ -46,7 +50,11 @@ mixin NavigateMixin {
       name: Navigate.productDetail.route,
       page: () => const ProductDetailView(),
     ),
-    GetPage(name: Navigate.main.route, page: () => const NavigationBarView()),
+    GetPage(
+      name: Navigate.main.route,
+      page: () => const NavigationBarView(),
+      bindings: [MainNavigatorBinding()],
+    ),
     GetPage(name: Navigate.welcome.route, page: () => const FirstLoginView()),
     GetPage(name: Navigate.signup.route, page: () => const RegistrationForm()),
     GetPage(name: Navigate.auth.route, page: () => const VerifyPage()),
@@ -102,4 +110,21 @@ enum Navigate {
 
 extension NavigateExtension on Navigate {
   String get route => '/$name';
+}
+
+class MainNavigatorBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get
+      ..put<NavBarController>(NavBarController())
+      ..lazyPut<HomeController>(() {
+        return HomeController();
+      })
+      ..lazyPut<CartController>(() {
+        return CartController();
+      })
+      ..lazyPut<FavoriteController>(() {
+        return FavoriteController();
+      });
+  }
 }

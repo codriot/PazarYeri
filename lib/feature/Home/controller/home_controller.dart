@@ -37,7 +37,6 @@ class HomeController extends GetxController {
   final NetworkManager networkManager = NetworkManager();
   final PageController pageController = PageController();
   // late final NetworkManager networkManager; // Test için lazımdı
-  // late List<Widget> pages;
   @override
   void onInit() {
     super.onInit();

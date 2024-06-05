@@ -122,8 +122,6 @@ class RegistrationController extends GetxController {
             ServicePath.User.path,
             data: model.toJson(),
           );
-          print(response);
-
           if (response.statusCode == 200) {
             final userId = response.data['user_id'];
             // user_id'yi GetStorage'a kaydet
@@ -132,7 +130,8 @@ class RegistrationController extends GetxController {
             Logger().i(
               "User ID GetStorage'a kaydedildi ${StorageUtil().getUserId()}",
             );
-            await Get.offAndToNamed(Navigate.main.route);
+            Get.close(1);
+            await Get.toNamed(Navigate.main.route);
           } else {
             Logger().e('Beklenmeyen durum kodu: ${response.statusCode}');
           }

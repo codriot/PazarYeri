@@ -48,6 +48,7 @@ class _RegistrationFormState extends State<RegistrationForm>
                 title: 'EMAIL ADRESINIZ',
                 controller: controller.emailController,
                 validator: validateEmail,
+                textInputAction: TextInputAction.done,
               ),
               dropDownButton(
                 title: 'EGITIM SEVİYENİZ',
