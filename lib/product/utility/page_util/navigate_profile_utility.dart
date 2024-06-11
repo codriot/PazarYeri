@@ -42,31 +42,6 @@ class ProfileNavigatorWidgetState extends State<ProfileNavigatorWidget> {
         }
 
         return GetPageRoute(page: () => const ProfileView());
-
-        // return GetPageRoute(
-        //   settings: settings,
-        //   builder: (BuildContext context) {
-        //     if (settings.name == Navigate.wallet.route) {
-        //       return const WalletView();
-        //     }
-        //     if (settings.name == Navigate.pastOrders.route) {
-        //       return const PastOrdersView();
-        //     }
-        //     if (settings.name == Navigate.address.route) {
-        //       return const AddressView();
-        //     }
-        //     if (settings.name == Navigate.card.route) {
-        //       return const CardsView();
-        //     }
-
-        //     if (settings.name == Navigate.setting.route) {
-        // return  GetPageRoute( page: () => const SettingsView());
-
-        //     }
-
-        //     return const ProfileView();
-        //   },
-        // );
       },
     );
   }

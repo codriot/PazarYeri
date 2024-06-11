@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/feature/Home/controller/home_controller.dart';
 import 'package:turkiye_yazilim_staj/feature/Home/view/home.dart';
@@ -23,6 +25,7 @@ import 'package:turkiye_yazilim_staj/feature/profile/past_orders/view/past_order
 import 'package:turkiye_yazilim_staj/feature/profile/profile/view/profile_view.dart';
 import 'package:turkiye_yazilim_staj/feature/profile/settings/view/Settings.dart';
 import 'package:turkiye_yazilim_staj/feature/profile/wallet/view/wallet_view.dart';
+import 'package:turkiye_yazilim_staj/product/utility/page_util/navigate_profile_utility.dart';
 import 'package:turkiye_yazilim_staj/product/utility/project_util/storage/storage_util.dart';
 
 mixin NavigateMixin {
@@ -81,6 +84,21 @@ mixin NavigateMixin {
     GetPage(
       name: Navigate.searchResult.route,
       page: SearchResultView.new,
+    ),
+    GetPage(
+      name: Navigate.profile.route,
+      page: () =>
+          const ProfileNavigatorWidget(), // Nested Navigator burada başlıyor
+      children: [
+        GetPage(name: Navigate.wallet.route, page: () => const WalletView()),
+        GetPage(
+          name: Navigate.pastOrders.route,
+          page: () => const PastOrdersView(),
+        ),
+        GetPage(name: Navigate.address.route, page: () => const AddressView()),
+        GetPage(name: Navigate.card.route, page: () => const CardsView()),
+        GetPage(name: Navigate.setting.route, page: () => const SettingsView()),
+      ],
     ),
   ];
 }

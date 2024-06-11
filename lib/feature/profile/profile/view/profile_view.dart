@@ -88,7 +88,7 @@ class ProfileView extends StatelessWidget {
             color: ColorsProject.coffeClay,
           ),
           onTap: () => canBack
-              ? Get.toNamed(route!)
+              ? Get.toNamed(route!, id: 1)
               // ? Navigator.pushNamed(context, route!)
               // ? Navigator.pushNamed(context, route!)
               : Get.defaultDialog(
