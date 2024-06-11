@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/feature/profile/address/view/adress_view.dart';
 import 'package:turkiye_yazilim_staj/feature/profile/cards/view/cards_view.dart';
 import 'package:turkiye_yazilim_staj/feature/profile/past_orders/view/past_orders_view.dart';
@@ -15,37 +16,57 @@ class ProfileNavigatorWidget extends StatefulWidget {
 }
 
 // GlobalKey<NavigatorState> wishListNavigatorKey = GlobalKey<NavigatorState>();
-final Key wishListNavigatorKey = UniqueKey();
+// final Key wishListNavigatorKey = UniqueKey();
 
 class ProfileNavigatorWidgetState extends State<ProfileNavigatorWidget> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      key: wishListNavigatorKey,
+      key: Get.nestedKey(1),
+      initialRoute: Navigate.profile.route,
       onGenerateRoute: (RouteSettings settings) {
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (BuildContext context) {
-            if (settings.name == Navigate.wallet.route) {
-              return const WalletView();
-            }
-            if (settings.name == Navigate.pastOrders.route) {
-              return const PastOrdersView();
-            }
-            if (settings.name == Navigate.address.route) {
-              return const AddressView();
-            }
-            if (settings.name == Navigate.card.route) {
-              return const CardsView();
-            }
+        if (settings.name == Navigate.wallet.route) {
+          return GetPageRoute(page: () => const WalletView()); //
+        }
+        if (settings.name == Navigate.pastOrders.route) {
+          return GetPageRoute(page: () => const PastOrdersView()); //
+        }
+        if (settings.name == Navigate.address.route) {
+          return GetPageRoute(page: () => const AddressView()); //
+        }
+        if (settings.name == Navigate.card.route) {
+          return GetPageRoute(page: () => const CardsView()); //
+        }
+        if (settings.name == Navigate.setting.route) {
+          return GetPageRoute(page: () => const SettingsView());
+        }
 
-            if (settings.name == Navigate.setting.route) {
-              return const SettingsView();
-            }
+        return GetPageRoute(page: () => const ProfileView());
 
-            return const ProfileView();
-          },
-        );
+        // return GetPageRoute(
+        //   settings: settings,
+        //   builder: (BuildContext context) {
+        //     if (settings.name == Navigate.wallet.route) {
+        //       return const WalletView();
+        //     }
+        //     if (settings.name == Navigate.pastOrders.route) {
+        //       return const PastOrdersView();
+        //     }
+        //     if (settings.name == Navigate.address.route) {
+        //       return const AddressView();
+        //     }
+        //     if (settings.name == Navigate.card.route) {
+        //       return const CardsView();
+        //     }
+
+        //     if (settings.name == Navigate.setting.route) {
+        // return  GetPageRoute( page: () => const SettingsView());
+
+        //     }
+
+        //     return const ProfileView();
+        //   },
+        // );
       },
     );
   }

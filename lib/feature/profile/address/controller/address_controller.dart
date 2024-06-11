@@ -19,7 +19,6 @@ class AddressController extends GetxController {
           await NetworkManager().getRequest(ServicePath.address.path);
       if (response.statusCode == 200) {
         final addressJson = response.data!['address'] as List<dynamic>;
-        Logger().i('adresler: $addressJson');
         address?.value = addressJson
             .map(
               (item) => AddressModel.fromJson(
@@ -30,7 +29,7 @@ class AddressController extends GetxController {
         Logger().i('adres içeriği: $address');
       }
     } catch (e) {
-      Logger().e('Kredi kartları alınamadı: $e');
+      Logger().e('Adresler alınamadı: $e');
     } finally {
       isLoading.value = false;
     }

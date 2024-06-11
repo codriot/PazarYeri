@@ -21,7 +21,6 @@ class CardController extends GetxController {
           await NetworkManager().getRequest(ServicePath.credit_card.path);
       if (response.statusCode == 200) {
         final creditCardsJson = response.data!['credit_card'] as List<dynamic>;
-        Logger().i('Kredi kartları: $creditCardsJson');
         creditCards?.value = creditCardsJson
             .map(
               (item) => CreditCardModel.fromJson(
