@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:turkiye_yazilim_staj/apps/services/service_manager.dart';
 import 'package:turkiye_yazilim_staj/feature/home/view_model/home_view_model.dart';
-import 'package:turkiye_yazilim_staj/product/service/service_manager.dart';
 
 // Mock NetworkManager class
 class MockNetworkManager extends Mock implements NetworkManager {}
