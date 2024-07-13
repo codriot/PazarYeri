@@ -21,7 +21,7 @@ Pazar Yeri bir e-ticaret uygulamasıdır. Kullanıcılar popüler ürünleri ke�
 
 ## Kullanılan Teknolojiler
 - **Flutter:** Mobil uygulama geliştirme çerçevesi.
-- **Python Flask:** Backend geliştirme ve API sunucusu.
+- **[Python Flask](https://github.com/codriot/PazarYeriFlaskApi):** Backend geliştirme ve API sunucusu.
 - **Dio:** İnternetten veri alma ve gönderme işlemleri.
 - **GetX:** State management.
 - **GetStorage:** DB işlemleri.
