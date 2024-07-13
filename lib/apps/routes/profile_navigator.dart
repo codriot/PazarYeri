@@ -8,17 +8,14 @@ import 'package:turkiye_yazilim_staj/apps/views/profile/past_orders/past_orders_
 import 'package:turkiye_yazilim_staj/apps/views/profile/profile_view.dart';
 import 'package:turkiye_yazilim_staj/apps/views/profile/wallet_view.dart';
 
-class ProfileNavigatorWidget extends StatefulWidget {
-  const ProfileNavigatorWidget({super.key});
+class ProfileNavigator extends StatefulWidget {
+  const ProfileNavigator({super.key});
 
   @override
-  ProfileNavigatorWidgetState createState() => ProfileNavigatorWidgetState();
+  ProfileNavigatorState createState() => ProfileNavigatorState();
 }
 
-// GlobalKey<NavigatorState> wishListNavigatorKey = GlobalKey<NavigatorState>();
-// final Key wishListNavigatorKey = UniqueKey();
-
-class ProfileNavigatorWidgetState extends State<ProfileNavigatorWidget> {
+class ProfileNavigatorState extends State<ProfileNavigator> {
   @override
   Widget build(BuildContext context) {
     return Navigator(

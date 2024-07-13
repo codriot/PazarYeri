@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/apps/controllers/navigation_bar_controller.dart';
-import 'package:turkiye_yazilim_staj/apps/utility/page_util/navigate_profile_utility.dart';
+import 'package:turkiye_yazilim_staj/apps/routes/profile_navigator.dart';
 import 'package:turkiye_yazilim_staj/apps/views/cart/cart_view.dart';
 import 'package:turkiye_yazilim_staj/apps/views/favourite_view.dart';
 import 'package:turkiye_yazilim_staj/apps/views/home_view.dart';
@@ -38,6 +38,6 @@ class _NavigationBarViewState extends State<NavigationBarView> {
     const HomeView(),
     const CartView(),
     const FavoriteView(),
-    const ProfileNavigatorWidget(),
+    const ProfileNavigator(),
   ];
 }

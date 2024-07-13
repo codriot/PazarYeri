@@ -2,7 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:turkiye_yazilim_staj/apps/bindings/project_bindings.dart';
-import 'package:turkiye_yazilim_staj/apps/utility/page_util/navigate_profile_utility.dart';
+import 'package:turkiye_yazilim_staj/apps/routes/profile_navigator.dart';
 import 'package:turkiye_yazilim_staj/apps/utility/project_util/storage/storage_util.dart';
 import 'package:turkiye_yazilim_staj/apps/views/Influencer_view.dart';
 import 'package:turkiye_yazilim_staj/apps/views/cart/cart_view.dart';
@@ -25,7 +25,6 @@ import 'package:turkiye_yazilim_staj/apps/views/profile/past_orders/past_orders_
 import 'package:turkiye_yazilim_staj/apps/views/profile/profile_view.dart';
 import 'package:turkiye_yazilim_staj/apps/views/profile/wallet_view.dart';
 
-// todo : Add the profile navigator and bindings
 mixin NavigateMixin {
   static const String init = '/';
 
@@ -65,7 +64,12 @@ mixin NavigateMixin {
     ),
     GetPage(name: Navigate.address.route, page: () => const AddressView()),
     GetPage(name: Navigate.card.route, page: () => const CardsView()),
-    GetPage(name: Navigate.search.route, page: () => const SearchView()),
+    GetPage(
+      name: Navigate.search.route,
+      page: () => const SearchView(),
+      transition: Transition.cupertino,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
     GetPage(name: Navigate.setting.route, page: () => const SettingsView()),
     GetPage(
       name: Navigate.allComment.route,
@@ -78,6 +82,7 @@ mixin NavigateMixin {
     GetPage(
       name: Navigate.notification.route,
       page: () => const NotificationView(),
+      transition: Transition.fadeIn,
     ),
     GetPage(
       name: Navigate.searchResult.route,
@@ -85,8 +90,7 @@ mixin NavigateMixin {
     ),
     GetPage(
       name: Navigate.profile.route,
-      page: () =>
-          const ProfileNavigatorWidget(), // Nested Navigator burada başlıyor
+      page: () => const ProfileNavigator(), // Nested Navigator burada başlıyor
       children: [
         GetPage(name: Navigate.wallet.route, page: () => const WalletView()),
         GetPage(
